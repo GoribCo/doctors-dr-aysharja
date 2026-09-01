@@ -1,12 +1,37 @@
 // Central developer configuration.
-// Content (languages, levels, stages) lives in /content/*.json and *.md files.
+// Content lives in /content/*.md files.
 
 const config = {
+  // ── Doctor Profile ────────────────────────────────────────────────────────
+  doctor: {
+    name: 'Aysharja Laxmi Podder',
+    professionalTitle: 'TODO',
+    speciality: 'TODO',
+    qualification: 'TODO',
+    profileImage: 'TODO', // Path to public folder image, e.g., '/images/profile.jpg'
+    contact: {
+      phone: 'TODO',
+      email: 'TODO',
+      location: 'TODO',
+    },
+    socialLinks: {
+      facebook: 'TODO',
+      linkedin: 'TODO',
+      twitter: 'TODO',
+    },
+    appointment: {
+      url: 'TODO',
+      phone: 'TODO',
+      instructions: 'TODO',
+    },
+  },
+
   // ── Site identity ──────────────────────────────────────────────────────────
   app: {
-    name: 'RxProfile',
+    name: 'Dr. Aysharja Laxmi Podder',
     version: '0.1.0',
-    tagline: 'Learn languages step by step',
+    tagline: 'Professional Medical Profile',
+    language: 'bn',
   },
 
   // ── URLs ──────────────────────────────────────────────────────────────────
@@ -24,11 +49,11 @@ const config = {
 
   // ── SEO defaults ──────────────────────────────────────────────────────────
   seo: {
-    defaultTitle: 'RxProfile – Language Learning',
-    titleTemplate: '%s | RxProfile',
+    defaultTitle: 'Dr. Aysharja Laxmi Podder - Professional Profile',
+    titleTemplate: '%s | Dr. Aysharja Laxmi Podder',
     defaultDescription:
-      'Learn German and Polish from Bengali with structured CEFR lessons. Step-by-step stages from A1 to C2 with vocabulary, flashcards, and spaced repetition.',
-    keywords: ['language learning', 'German', 'Polish', 'Bengali', 'CEFR', 'A1 B1 C2', 'flashcards', 'vocabulary'],
+      'Professional profile, medical services, and appointment booking for Dr. Aysharja Laxmi Podder.',
+    keywords: ['doctor', 'medical', 'Aysharja Laxmi Podder', 'TODO'],
   },
 
   // ── Theme ──────────────────────────────────────────────────────────────────
