@@ -118,6 +118,7 @@ export function getAllDoctorContent(lang: ContentLanguage = DEFAULT_CONTENT_LANG
     servicesList: getServicesList(lang),
     chamber: getSectionContent('chamber.md', lang),
     appointment: getSectionContent('appointment.md', lang),
+    review: getSectionContent('review.md', lang),
     home: getSectionContent('home.md', lang),
     articles: getSectionContent('articles.md', lang),
     faq: getSectionContent('faq.md', lang),

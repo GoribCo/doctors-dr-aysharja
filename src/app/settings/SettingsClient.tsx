@@ -124,25 +124,6 @@ export default function SettingsClient() {
 
   return (
     <>
-      {/* Progress */}
-      <section className="mb-6">
-        <h2 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3 px-1">
-          {t.settings.progress}
-        </h2>
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
-          <div className="flex items-center justify-between px-4 py-4">
-            <div className="text-sm font-medium text-gray-900 dark:text-white">{t.settings.streak}</div>
-            <div className="flex items-center gap-1 text-orange-600 dark:text-orange-400 font-bold text-sm">
-              🔥 {streak > 0 ? `${streak} ${t.settings.streakDays}` : 'Start today!'}
-            </div>
-          </div>
-          <div className="flex items-center justify-between px-4 py-4">
-            <div className="text-sm font-medium text-gray-900 dark:text-white">{t.settings.totalComplete}</div>
-            <div className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">{totalStages}</div>
-          </div>
-        </div>
-      </section>
-
       {/* Appearance */}
       <section className="mb-6">
         <h2 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3 px-1">
@@ -277,69 +258,6 @@ export default function SettingsClient() {
             </div>
           )}
         </div>
-      </section>
-
-      {/* Data management */}
-      <section className="mb-6">
-        <h2 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3 px-1">
-          Data
-        </h2>
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
-          {/* Export */}
-          <div className="px-4 py-4">
-            <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Export Progress</div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 mb-3">Download a backup of all your progress, SRS scores, notes and ratings.</div>
-            <button
-              onClick={handleExport}
-              className="w-full py-2.5 rounded-xl text-sm font-medium bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 dark:hover:bg-indigo-950/60 transition-colors"
-            >
-              Export Progress
-            </button>
-          </div>
-
-          {/* Import */}
-          <div className="px-4 py-4">
-            <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Import Backup</div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 mb-3">Restore from a previously exported backup file.</div>
-            <label className="block w-full py-2.5 rounded-xl text-sm font-medium text-center bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors cursor-pointer">
-              Import Backup
-              <input type="file" accept=".json" onChange={handleImport} className="hidden" />
-            </label>
-          </div>
-
-          {/* Reset */}
-          <div className="px-4 py-4">
-            <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">{t.settings.resetProgress}</div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 mb-3">{t.settings.resetConfirm}</div>
-            <button
-              onClick={handleReset}
-              className={`w-full py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                confirmReset
-                  ? 'bg-rose-600 hover:bg-rose-700 text-white'
-                  : 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800 hover:bg-rose-100'
-              }`}
-            >
-              {confirmReset ? t.settings.resetConfirm : t.settings.resetProgress}
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Tools */}
-      <section className="mb-6">
-        <h2 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3 px-1">
-          Quick Links
-        </h2>
-        <Link
-          href="/courses"
-          className="flex items-center gap-3 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-4 hover:border-indigo-300 dark:hover:border-indigo-600 transition-colors"
-        >
-          <div className="text-2xl">📚</div>
-          <div>
-            <div className="text-sm font-semibold text-gray-900 dark:text-white">{t.nav.courses}</div>
-            <div className="text-xs text-gray-500 dark:text-gray-400">Vocabulary &amp; Progress inside each course</div>
-          </div>
-        </Link>
       </section>
 
       {/* Toast */}

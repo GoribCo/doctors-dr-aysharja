@@ -1,160 +1,163 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { getDueCards, updateCard, type DueCard } from '@/lib/srs'
-import { updateStreak } from '@/lib/progress'
-import SpeakButton from '@/components/SpeakButton'
-import { getLangCode } from '@/lib/languages'
-import { useUiLang } from '@/components/UiLanguageProvider'
-import KeyboardShortcuts from '@/components/KeyboardShortcuts'
+import { useState } from 'react'
+import Link from 'next/link'
+import ThemeToggle from '@/components/ThemeToggle'
+import { useContentLanguage } from '@/components/ContentLanguageProvider'
+import { useDoctorContent } from '@/hooks/useDoctorContent'
+import config from '@/config'
 
-interface Props {
-  pair: string
-  pairLabel: string
+type ReviewContent = Record<string, unknown>
+type PatientReview = {
+  name: string
+  rating: number
+  date: string
+  service?: string
+  review: string
+  status: string
 }
 
-export default function ReviewClient({ pair, pairLabel }: Props) {
-  const { t } = useUiLang()
-  const [cards, setCards] = useState<DueCard[]>([])
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [flipped, setFlipped] = useState(false)
-  const [done, setDone] = useState(false)
-  const [loaded, setLoaded] = useState(false)
+function text(content: ReviewContent | null, key: string, fallback: string) {
+  return typeof content?.[key] === 'string' ? content[key] as string : fallback
+}
 
-  const langCode = getLangCode(pair)
+function reviews(content: ReviewContent): PatientReview[] {
+  return Array.isArray(content.reviews)
+    ? content.reviews.filter((item): item is PatientReview => {
+        if (!item || typeof item !== 'object') return false
+        const review = item as Record<string, unknown>
+        return review.status === 'approved' && typeof review.name === 'string' &&
+          typeof review.rating === 'number' && typeof review.date === 'string' &&
+          typeof review.review === 'string'
+      })
+    : []
+}
 
-  useEffect(() => {
-    const due = getDueCards(pair)
-    setCards(due)
-    setLoaded(true)
-  }, [pair])
+function Stars({ rating, label }: { rating: number; label?: string }) {
+  return (
+    <span className="flex items-center gap-0.5 text-amber-400" aria-label={label ?? `${rating} out of 5 stars`}>
+      {[1, 2, 3, 4, 5].map(star => <span key={star} aria-hidden="true">{star <= rating ? '★' : '☆'}</span>)}
+    </span>
+  )
+}
 
-  if (!loaded) {
-    return <div className="text-center py-12 text-gray-400 dark:text-gray-500 text-sm">{t.common.loading}</div>
+export default function ReviewClient() {
+  const { lang } = useContentLanguage()
+  const { content, isLoading, error } = useDoctorContent(lang)
+  const review = content?.review as ReviewContent | null
+  const [rating, setRating] = useState(0)
+  const [submitted, setSubmitted] = useState(false)
+
+  if (isLoading) {
+    return <div className="px-5 pb-28 pt-10 text-center text-sm text-slate-500 dark:text-slate-400">Loading...</div>
   }
 
-  if (cards.length === 0 || done) {
-    return (
-      <div className="text-center py-12">
-        <div className="text-5xl mb-4">🎉</div>
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{t.review.allCaughtUp}</h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400">{t.review.allCaughtUpMsg}</p>
-      </div>
-    )
+  if (error || !review || !review.isVisible) {
+    return <div className="px-5 pb-28 pt-10 text-center text-sm text-slate-500 dark:text-slate-400">Review content is not available.</div>
   }
 
-  const card = cards[currentIndex]
-  const total = cards.length
-  const progress = Math.round(((currentIndex) / total) * 100)
+  const approvedReviews = reviews(review)
+  const averageRating = approvedReviews.length
+    ? (approvedReviews.reduce((total, item) => total + item.rating, 0) / approvedReviews.length).toFixed(1)
+    : '-'
+  const reviewCount = approvedReviews.length
+  const mailConfigured = config.doctor.contact.email !== 'TODO'
 
-  function handleScore(score: 1 | 2 | 3) {
-    updateCard(card.pair, card.level, card.stage, card.front, score)
-    if (currentIndex + 1 >= total) {
-      updateStreak()
-      setDone(true)
+  function submitReview(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const form = new FormData(event.currentTarget)
+    const message = [
+      `Name: ${form.get('name') || 'Anonymous'}`,
+      `Rating: ${rating}/5`,
+      `Service: ${form.get('service') || 'Not specified'}`,
+      `Contact: ${form.get('contact') || 'Not provided'}`,
+      '',
+      String(form.get('message') || ''),
+    ].join('\n')
+
+    if (mailConfigured) {
+      window.location.href = `mailto:${config.doctor.contact.email}?subject=Patient review submission&body=${encodeURIComponent(message)}`
     } else {
-      setFlipped(false)
-      setCurrentIndex(i => i + 1)
+      setSubmitted(true)
     }
   }
 
   return (
-    <div>
-      <KeyboardShortcuts
-        onFlip={() => setFlipped(f => !f)}
-        onNext={() => {
-          if (flipped && currentIndex + 1 < total) {
-            setFlipped(false)
-            setCurrentIndex(i => i + 1)
-          }
-        }}
-        onPrev={() => {
-          if (currentIndex > 0) {
-            setFlipped(false)
-            setCurrentIndex(i => i - 1)
-          }
-        }}
-        onScore1={flipped ? () => handleScore(1) : undefined}
-        onScore2={flipped ? () => handleScore(2) : undefined}
-        onScore3={flipped ? () => handleScore(3) : undefined}
-      />
-      {/* Progress bar */}
-      <div className="mb-4">
-        <div className="flex items-center justify-between mb-1.5">
-          <span className="text-xs text-gray-500 dark:text-gray-400">{currentIndex} of {total} reviewed</span>
-          <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400">{progress}%</span>
+    <div className="px-5 pb-28 pt-6 sm:px-8 lg:pb-10 lg:pt-10">
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-10 flex items-start justify-between gap-6">
+          <div>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-teal-700 dark:text-teal-300">{text(review, 'eyebrow', 'Patient voice')}</p>
+            <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">{text(review, 'heading', 'Reviews and experiences')}</h1>
+            <p className="mt-3 max-w-xl text-sm leading-6 text-slate-600 dark:text-slate-300 sm:text-base">{text(review, 'intro', '')}</p>
+          </div>
+          <ThemeToggle />
         </div>
-        <div className="h-1.5 w-full bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-indigo-500 rounded-full transition-all duration-300"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-      </div>
 
-      {/* Card */}
-      <div
-        className="relative cursor-pointer select-none mb-4"
-        style={{ perspective: '1200px' }}
-        onClick={() => setFlipped(f => !f)}
-      >
-        <div
-          className="relative w-full transition-transform duration-500"
-          style={{
-            transformStyle: 'preserve-3d',
-            transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-            minHeight: '180px',
-          }}
-        >
-          {/* Front */}
-          <div
-            className="absolute inset-0 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 flex flex-col items-center justify-center gap-2"
-            style={{ backfaceVisibility: 'hidden' }}
-          >
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-gray-900 dark:text-white">{card.front}</span>
-              <SpeakButton text={card.front} lang={langCode} />
+        <section className="grid gap-5 md:grid-cols-[1fr_1.35fr]">
+          <div className="rounded-2xl bg-teal-800 p-6 text-white shadow-sm dark:bg-teal-950 sm:p-8">
+            <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-full bg-white/12 text-xl" aria-hidden="true">★</div>
+            <p className="text-sm font-medium text-teal-100">{text(review, 'feedbackLabel', 'Your feedback matters')}</p>
+            <h2 className="mt-2 text-2xl font-semibold leading-tight">{text(review, 'feedbackHeading', '')}</h2>
+            <p className="mt-4 text-sm leading-6 text-teal-100/80">{text(review, 'feedbackText', '')}</p>
+            <Link href="/contact" className="mt-7 inline-flex items-center rounded-lg bg-white px-4 py-3 text-sm font-semibold text-teal-800 transition hover:bg-teal-50">{text(review, 'feedbackCta', 'Share your experience')} <span className="ml-2" aria-hidden="true">→</span></Link>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800 sm:p-8">
+            <div className="flex items-center justify-between gap-4 border-b border-slate-100 pb-5 dark:border-slate-700">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">{text(review, 'reviewsLabel', 'Patient reviews')}</p>
+                <h2 className="mt-2 text-xl font-semibold text-slate-900 dark:text-white">{text(review, 'reviewsHeading', 'A growing collection')}</h2>
+              </div>
+              <div className="text-right">
+                <p className="text-xl font-semibold text-slate-900 dark:text-white">{averageRating}<span className="text-sm text-slate-400">/5</span></p>
+                <p className="text-xs text-slate-400 dark:text-slate-500">{reviewCount} {text(review, 'reviewCountLabel', 'approved reviews')}</p>
+              </div>
             </div>
-            <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">Tap to reveal translation</p>
+            {approvedReviews.length > 0 ? (
+              <div className="mt-6 space-y-4">
+                {approvedReviews.map(item => (
+                  <article key={`${item.name}-${item.date}`} className="border-b border-slate-100 pb-4 last:border-0 last:pb-0 dark:border-slate-700">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex items-center gap-3"><strong className="text-sm text-slate-900 dark:text-white">{item.name}</strong><Stars rating={item.rating} /></div>
+                      <time className="text-xs text-slate-400 dark:text-slate-500">{item.date}</time>
+                    </div>
+                    <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{item.review}</p>
+                    {item.service && <span className="mt-3 inline-flex rounded-full bg-teal-50 px-2.5 py-1 text-xs font-medium text-teal-700 dark:bg-teal-950/60 dark:text-teal-300">{item.service}</span>}
+                  </article>
+                ))}
+              </div>
+            ) : <div className="py-10 text-center"><div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-teal-50 text-2xl text-teal-700 dark:bg-teal-950/60 dark:text-teal-300" aria-hidden="true">“</div><h3 className="text-lg font-semibold text-slate-900 dark:text-white">{text(review, 'emptyHeading', '')}</h3><p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-slate-500 dark:text-slate-400">{text(review, 'emptyText', '')}</p></div>}
           </div>
+        </section>
 
-          {/* Back */}
-          <div
-            className="absolute inset-0 bg-indigo-50 dark:bg-indigo-950/40 rounded-2xl border border-indigo-200 dark:border-indigo-800 p-6 flex flex-col items-center justify-center gap-2"
-            style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-          >
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">{card.front}</p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">{card.level.toUpperCase()} · Stage {card.stage}</p>
+        <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800 sm:p-8">
+          <div className="mb-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-teal-700 dark:text-teal-300">{text(review, 'formEyebrow', 'Share your experience')}</p>
+            <h2 className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">{text(review, 'formHeading', 'Leave a review')}</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">{text(review, 'moderationNote', 'Submissions are reviewed before they are published.')}</p>
           </div>
-        </div>
+          {submitted ? <div className="rounded-xl bg-teal-50 p-5 text-sm leading-6 text-teal-800 dark:bg-teal-950/50 dark:text-teal-200">{text(review, 'fallbackSubmissionNote', 'Please contact the clinic to submit your review. It will be reviewed before publication.')}</div> : <form onSubmit={submitReview} className="grid gap-4 sm:grid-cols-2">
+            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{text(review, 'nameLabel', 'Name or initials')}<input name="name" placeholder={text(review, 'namePlaceholder', 'e.g. Farhana S.')} className="mt-2 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-3 font-normal outline-none focus:border-teal-600 dark:border-slate-600" /></label>
+            <fieldset><legend className="text-sm font-medium text-slate-700 dark:text-slate-300">{text(review, 'ratingLabel', 'Rating')}</legend><div className="mt-2 flex gap-1">{[1, 2, 3, 4, 5].map(value => <button key={value} type="button" aria-label={`${value} stars`} onClick={() => setRating(value)} className={`text-2xl ${value <= rating ? 'text-amber-400' : 'text-slate-300 dark:text-slate-600'}`}>★</button>)}</div></fieldset>
+            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{text(review, 'serviceLabel', 'Reason for visit')}<select name="service" className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-3 font-normal dark:border-slate-600 dark:bg-slate-800"><option value="">{text(review, 'serviceOptional', 'Optional')}</option><option>Prenatal Care</option><option>General Consultation</option><option>Gynecological Checkup</option></select></label>
+            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{text(review, 'contactLabel', 'Phone or email (optional)')}<input name="contact" className="mt-2 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-3 font-normal outline-none focus:border-teal-600 dark:border-slate-600" /></label>
+            <label className="text-sm font-medium text-slate-700 dark:text-slate-300 sm:col-span-2">{text(review, 'messageLabel', 'Your review')}<textarea name="message" required rows={5} className="mt-2 w-full resize-y rounded-lg border border-slate-300 bg-transparent px-3 py-3 font-normal outline-none focus:border-teal-600 dark:border-slate-600" /></label>
+            <div className="sm:col-span-2"><button type="submit" disabled={rating === 0} className="rounded-lg bg-teal-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-teal-600">{text(review, 'submitLabel', 'Submit for review')}</button><p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{text(review, 'privacyNote', 'Your contact details are used only for verification and are not shown publicly.')}</p></div>
+          </form>}
+        </section>
+
+        <section className="mt-6 flex flex-col items-start justify-between gap-5 rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60 sm:flex-row sm:items-center sm:p-7">
+          <div>
+            <p className="text-sm font-semibold text-slate-900 dark:text-white">{text(review, 'questionsHeading', '')}</p>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{text(review, 'questionsText', '')}</p>
+          </div>
+          <div className="flex w-full flex-wrap gap-3 sm:w-auto">
+            <Link href="/appointment" className="rounded-lg bg-teal-700 px-4 py-3 text-sm font-semibold text-white transition hover:bg-teal-800 dark:bg-teal-600 dark:hover:bg-teal-500">{text(review, 'appointmentCta', 'Book an appointment')}</Link>
+            <Link href="/contact" className="rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-teal-500 hover:text-teal-700 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-teal-400 dark:hover:text-teal-300">{text(review, 'contactCta', 'Contact clinic')}</Link>
+          </div>
+        </section>
       </div>
-
-      {/* Score buttons — only visible after flip */}
-      {flipped && (
-        <div className="grid grid-cols-3 gap-3">
-          <button
-            onClick={() => handleScore(1)}
-            className="flex flex-col items-center gap-1 py-3 px-2 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl text-rose-700 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-950/60 transition-colors text-sm font-medium"
-          >
-            <span>😓</span>
-            {t.review.hard}
-          </button>
-          <button
-            onClick={() => handleScore(2)}
-            className="flex flex-col items-center gap-1 py-3 px-2 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 rounded-xl text-blue-700 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-950/60 transition-colors text-sm font-medium"
-          >
-            <span>👍</span>
-            {t.review.good}
-          </button>
-          <button
-            onClick={() => handleScore(3)}
-            className="flex flex-col items-center gap-1 py-3 px-2 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-950/60 transition-colors text-sm font-medium"
-          >
-            <span>🎉</span>
-            {t.review.easy}
-          </button>
-        </div>
-      )}
     </div>
   )
 }
