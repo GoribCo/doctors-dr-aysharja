@@ -5,7 +5,10 @@ import Link from 'next/link'
 import { getStreak, getTotalCompletedStages, resetProgress } from '@/lib/progress'
 import ThemeToggle from '@/components/ThemeToggle'
 import { useUiLang } from '@/components/UiLanguageProvider'
+import { useContentLanguage } from '@/components/ContentLanguageProvider'
+import { useSpeciality } from '@/components/SpecialityProvider'
 import { UI_LANGUAGES } from '@/lib/i18n'
+import { SPECIALITY_THEMES, type Speciality } from '@/lib/specialities'
 
 type FontSize = 'small' | 'medium' | 'large'
 type ToastType = 'success' | 'error'
@@ -18,6 +21,8 @@ const fontSizeClasses: Record<FontSize, string> = {
 
 export default function SettingsClient() {
   const { t, lang, setLang } = useUiLang()
+  const { lang: contentLang, availableLangs, setLang: setContentLang } = useContentLanguage()
+  const { speciality, setSpeciality } = useSpeciality()
   const [streak, setStreak] = useState(0)
   const [totalStages, setTotalStages] = useState(0)
   const [fontSize, setFontSize] = useState<FontSize>('medium')
@@ -192,6 +197,85 @@ export default function SettingsClient() {
               </button>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Content Language */}
+      {availableLangs.length > 1 && (
+        <section className="mb-6">
+          <h2 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3 px-1">
+            {t.settings.contentLanguage}
+          </h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-4">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">{t.settings.contentLanguageDesc}</p>
+            <div className="flex flex-wrap gap-2">
+              {availableLangs.map(langCode => {
+                const langName = langCode === 'bn' ? 'বাংলা' : langCode === 'hi' ? 'हिन्दी' : 'English'
+                const langFlag = langCode === 'bn' ? '🇧🇩' : langCode === 'hi' ? '🇮🇳' : '🇬🇧'
+                return (
+                  <button
+                    key={langCode}
+                    onClick={() => setContentLang(langCode)}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
+                      contentLang === langCode
+                        ? 'bg-blue-600 text-white border-blue-600'
+                        : 'bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-500'
+                    }`}
+                  >
+                    <span>{langFlag}</span>
+                    <span>{langName}</span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Medical Speciality */}
+      <section className="mb-6">
+        <h2 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3 px-1">
+          {t.settings.speciality}
+        </h2>
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-4">
+          <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">{t.settings.specialityDesc}</p>
+          <div className="flex flex-wrap gap-2 mb-4">
+            <button
+              onClick={() => setSpeciality(null)}
+              className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
+                speciality === null
+                  ? 'bg-gray-900 dark:bg-gray-700 text-white border-gray-900 dark:border-gray-700'
+                  : 'bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-gray-300'
+              }`}
+            >
+              <span>⚕️</span>
+              <span>{t.settings.specialityNone}</span>
+            </button>
+            {Object.entries(SPECIALITY_THEMES).map(([key, theme]) => (
+              <button
+                key={key}
+                onClick={() => setSpeciality(key as Speciality)}
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
+                  speciality === key
+                    ? 'text-white border-current'
+                    : 'bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-current'
+                }`}
+                style={{
+                  backgroundColor: speciality === key ? theme.primary : 'transparent',
+                  borderColor: speciality === key ? theme.primary : 'inherit',
+                  color: speciality === key ? 'white' : 'inherit',
+                }}
+              >
+                <span>{theme.icon}</span>
+                <span>{theme.label}</span>
+              </button>
+            ))}
+          </div>
+          {speciality && SPECIALITY_THEMES[speciality] && (
+            <div className="text-xs text-gray-500 dark:text-gray-400 p-3 rounded-lg" style={{ backgroundColor: SPECIALITY_THEMES[speciality].secondary }}>
+              <p className="font-medium">{SPECIALITY_THEMES[speciality].description}</p>
+            </div>
+          )}
         </div>
       </section>
 

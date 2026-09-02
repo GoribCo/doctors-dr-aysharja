@@ -21,9 +21,10 @@ const config = {
     },
     appointment: {
       url: 'TODO',
-      phone: 'TODO',
-      instructions: 'TODO',
+      phone: '+8801712345678',
+      instructions: 'Call for appointment booking and consultation scheduling.',
     },
+    chambers: [],
   },
 
   // ── Site identity ──────────────────────────────────────────────────────────

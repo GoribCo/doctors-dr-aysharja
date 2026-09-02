@@ -35,20 +35,17 @@ export default function BottomNav() {
   const { t } = useUiLang()
 
   const navItems = [
-    { label: t.nav.home,     href: '/',         icon: icons.home },
-    { label: t.nav.courses,  href: '/courses',  icon: icons.courses },
-    { label: t.nav.review,   href: '/review',   icon: icons.review },
-    { label: t.nav.settings, href: '/settings', icon: icons.settings },
+    { label: 'Home', href: '/', icon: icons.home },
+    { label: 'Appointment', href: '/appointment', icon: icons.review },
+    { label: 'Services', href: '/services', icon: icons.courses },
+    { label: 'Contact', href: '/contact', icon: icons.settings },
   ]
 
   function isActive(href: string) {
     if (href === '/') return pathname === '/'
-    if (href === '/settings') return pathname.startsWith('/settings')
-    if (href === '/review') return pathname.startsWith('/review')
-    if (href === '/courses') {
-      // Active on /courses or any pair-scoped page (levels, stages, vocabulary, progress)
-      return pathname.startsWith('/courses') || /^\/[a-z]{2}-[a-z]{2}/.test(pathname)
-    }
+    if (href === '/contact') return pathname.startsWith('/contact')
+    if (href === '/appointment') return pathname.startsWith('/appointment')
+    if (href === '/services') return pathname.startsWith('/services')
     return pathname.startsWith(href)
   }
 

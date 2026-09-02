@@ -8,5 +8,7 @@ if [ ! -d node_modules ]; then
   npm install
 fi
 
+rm -rf .next out
+
 # Port is set in src/config.ts → dev.port
 npm run dev -- --port 3010

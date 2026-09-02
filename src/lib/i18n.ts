@@ -104,6 +104,11 @@ export interface Translations {
     fontLarge: string
     language: string
     languageDesc: string
+    contentLanguage: string
+    contentLanguageDesc: string
+    speciality: string
+    specialityDesc: string
+    specialityNone: string
     progress: string
     streak: string
     streakDays: string
@@ -233,6 +238,11 @@ const en: Translations = {
     fontLarge: 'Large',
     language: 'Site Language',
     languageDesc: 'Language used for menus and buttons',
+    contentLanguage: 'Content Language',
+    contentLanguageDesc: 'Language for profile content',
+    speciality: 'Medical Speciality',
+    specialityDesc: 'Customize appearance based on speciality',
+    specialityNone: 'Not specified',
     progress: 'Your Progress',
     streak: 'Current streak',
     streakDays: 'days',
@@ -356,6 +366,11 @@ const bn: Translations = {
     fontLarge: 'বড়',
     language: 'সাইটের ভাষা',
     languageDesc: 'মেনু ও বোতামের ভাষা',
+    contentLanguage: 'সামগ্রী ভাষা',
+    contentLanguageDesc: 'প্রোফাইল সামগ্রীর ভাষা',
+    speciality: 'চিকিৎসা বিশেষত্ব',
+    specialityDesc: 'বিশেষত্ব অনুযায়ী চেহারা কাস্টমাইজ করুন',
+    specialityNone: 'নির্দিষ্ট নয়',
     progress: 'আপনার অগ্রগতি',
     streak: 'বর্তমান স্ট্রিক',
     streakDays: 'দিন',
@@ -479,6 +494,11 @@ const hi: Translations = {
     fontLarge: 'बड़ा',
     language: 'साइट की भाषा',
     languageDesc: 'मेनू और बटन की भाषा',
+    contentLanguage: 'सामग्री भाषा',
+    contentLanguageDesc: 'प्रोफाइल सामग्री की भाषा',
+    speciality: 'चिकित्सा विशेषता',
+    specialityDesc: 'विशेषता के अनुसार उपस्थिति को अनुकूलित करें',
+    specialityNone: 'निर्दिष्ट नहीं',
     progress: 'आपकी प्रगति',
     streak: 'वर्तमान स्ट्रीक',
     streakDays: 'दिन',

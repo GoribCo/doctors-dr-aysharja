@@ -69,7 +69,7 @@ Do not modify unrelated infrastructure.
 
 ---
 
-### Task 3 — Doctor Configuration - IP
+### Task 3 — Doctor Configuration - DONE
 
 ```text
 Create or adapt the existing configuration system for the doctor website.
@@ -98,7 +98,7 @@ Unknown information must remain empty/TODO rather than being invented.
 
 ---
 
-### Task 4 — Doctor Homepage
+### Task 4 — Doctor Homepage - DONE
 
 ```text
 Convert the existing homepage into a professional doctor homepage.
@@ -126,7 +126,7 @@ Keep the existing responsive architecture.
 
 ---
 
-### Task 5 — Doctor Hero Section
+### Task 5 — Doctor Hero Section - DONE
 
 ```text
 Redesign/adapt the homepage hero specifically for a doctor personal website.
@@ -150,7 +150,7 @@ Reuse existing hero/layout components where appropriate.
 
 ---
 
-### Task 6 — Doctor Profile / About
+### Task 6 — Doctor Profile / About - DONE
 
 ```text
 Create/adapt the Doctor Profile and About section.
@@ -178,7 +178,7 @@ Reuse existing components where possible.
 
 ---
 
-### Task 7 — Services / Expertise
+### Task 7 — Services / Expertise - DONE
 
 ```text
 Convert the existing services/content section into a doctor Services / Expertise section.
@@ -203,7 +203,7 @@ Hide the entire section if there are no services.
 
 ---
 
-### Task 8 — Speciality-Based UI
+### Task 8 — Speciality-Based UI - DONE
 
 ```text
 Adapt the website so the visual presentation can change based on the doctor's speciality.
@@ -231,7 +231,7 @@ Do not invent a speciality for Aysharja Laxmi Podder.
 
 ---
 
-### Task 9 — Appointment CTA
+### Task 9 — Appointment CTA - DONE
 
 ```text
 Implement the initial appointment functionality.
@@ -256,7 +256,7 @@ Keep the implementation extensible so appointment API/external booking can be ad
 
 ---
 
-### Task 10 — Chamber / Clinic
+### Task 10 — Chamber / Clinic - DONE
 
 ```text
 Create/adapt the Chamber / Clinic section.
@@ -281,7 +281,7 @@ Do not invent hospital or clinic information.
 
 ---
 
-### Task 11 — Mobile Experience
+### Task 11 — Mobile Experience - DONE
 
 ```text
 Optimize the doctor website specifically for mobile.
@@ -311,7 +311,7 @@ Do not break desktop responsiveness.
 
 ---
 
-### Task 12 — Desktop Experience
+### Task 12 — Desktop Experience - DONE
 
 ```text
 Optimize the doctor website for desktop.
@@ -332,7 +332,7 @@ Do not introduce an entirely new design system.
 
 ---
 
-### Task 13 — Language Switching
+### Task 13 — Language Switching - DONE
 
 ```text
 Adapt the existing language system for the doctor website.
@@ -353,7 +353,7 @@ Do not automatically invent or translate medical information.
 
 ---
 
-### Task 14 — Theme / Dark Mode
+### Task 14 — Theme / Dark Mode - IP
 
 ```text
 Adapt the existing theme system for the doctor website.
