@@ -2,9 +2,9 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import ThemeToggle from '@/components/ThemeToggle'
 import { useContentLanguage } from '@/components/ContentLanguageProvider'
 import { useDoctorContent } from '@/hooks/useDoctorContent'
+import SiteHeader from "@/components/SiteHeader";
 
 interface Props {
   doctorContent: any
@@ -29,7 +29,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 export default function HomeClient({ doctorContent: initialContent, config }: Props) {
   const [visible, setVisible] = useState(false)
-  const { lang, availableLangs, setLang } = useContentLanguage()
+  const { lang } = useContentLanguage()
   const { content: fetchedContent } = useDoctorContent(lang)
   const home = (fetchedContent?.home ?? initialContent.home ?? {}) as Record<string, unknown>
   const phone = text(home, 'phone', config.doctor.appointment.phone || '')
@@ -44,11 +44,11 @@ export default function HomeClient({ doctorContent: initialContent, config }: Pr
   }, [])
 
   return <div className="homepage" data-visible={visible}>
-    <header className="site-header"><div className="site-header-inner">
-      <Link href="/" className="brand" aria-label={`${doctorName} home`}><span className="brand-mark">ALP</span><span><strong>{doctorName}</strong><small>{text(home, 'brandSubtitle')}</small></span></Link>
-      <div className="header-actions"><select className="language-select" aria-label="Change language" value={lang} onChange={event => setLang(event.target.value as typeof lang)}>{availableLangs.map(language => <option value={language} key={language}>{language.toUpperCase()}</option>)}</select><ThemeToggle /><a href={phoneHref} className="header-phone"><PhoneIcon /><span>{text(home, 'callToBook')}</span></a></div>
-    </div></header>
-
+    <SiteHeader
+      initialHome={initialContent.home}
+        doctorName={config.doctor.name}
+        phone={config.doctor.appointment.phone}
+    />
     <main>
       <section className="hero-section" aria-labelledby="hero-title"><div className="hero-copy reveal"><p className="eyebrow">{text(home, 'heroEyebrow')}</p><h1 id="hero-title">{text(home, 'heroTitle')}</h1><p className="hero-name">{doctorName}</p><p className="hero-role">{text(home, 'credentials')} <span aria-hidden="true">&#183;</span> {text(home, 'specialization')}</p><p className="hero-description">{text(home, 'heroDescription')}</p><a href={phoneHref} className="button button-primary"><PhoneIcon /> {text(home, 'callToBook')}</a><p className="hero-note">{text(home, 'appointmentNote')} <span aria-hidden="true">&#183;</span> {text(home, 'consultationHours')}</p></div><div className="hero-portrait reveal reveal-delay"><div className="portrait-frame"><img src="/profile-images/image1.jpg" alt={doctorName} /></div><div className="portrait-caption"><span className="status-dot" /> {text(home, 'availability')} <small>{text(home, 'availabilityNote')}</small></div></div></section>
 
@@ -62,7 +62,5 @@ export default function HomeClient({ doctorContent: initialContent, config }: Pr
       <section className="quote-section reveal" aria-label={text(home, 'testimonialLabel', 'Patient testimonial')}><blockquote>“{text(home, 'testimonial')}”</blockquote><cite>{text(home, 'testimonialAuthor')}</cite></section>
       <section className="final-cta reveal" aria-labelledby="cta-title"><div><SectionLabel>{text(home, 'ctaLabel')}</SectionLabel><h2 id="cta-title">{text(home, 'ctaTitle')}</h2></div><a href={phoneHref} className="cta-phone">{phone}<span><PhoneIcon /> {text(home, 'callToBook')}</span></a></section>
     </main>
-
-    <footer className="site-footer"><div><strong>{doctorName}</strong><p>{text(home, 'footerAddress')}</p></div><nav aria-label="Footer navigation"><Link href="/profile">{text(home, 'footerAbout', 'About')}</Link><Link href="/services">{text(home, 'footerServices', 'Services')}</Link><Link href="/contact">{text(home, 'footerContact', 'Contact')}</Link></nav><a href={phoneHref} className="footer-phone"><PhoneIcon /> {phone}</a><p className="copyright">&copy; {new Date().getFullYear()} {doctorName}</p></footer>
   </div>
 }
