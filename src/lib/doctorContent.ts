@@ -54,6 +54,7 @@ export function getSectionContent(filename: string, lang: ContentLanguage = DEFA
   const isVisible = !content.includes('TODO') || hasStructuredDetails
 
   const result = {
+    ...data,
     title: (data.title as string) || '',
     description: (data.description as string) || '',
     content,
@@ -117,6 +118,7 @@ export function getAllDoctorContent(lang: ContentLanguage = DEFAULT_CONTENT_LANG
     servicesList: getServicesList(lang),
     chamber: getSectionContent('chamber.md', lang),
     appointment: getSectionContent('appointment.md', lang),
+    home: getSectionContent('home.md', lang),
     articles: getSectionContent('articles.md', lang),
     faq: getSectionContent('faq.md', lang),
     contact: getSectionContent('contact.md', lang),

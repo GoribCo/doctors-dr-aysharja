@@ -6,7 +6,7 @@ export const dynamic = 'force-static'
 
 export const metadata: Metadata = {
   title: 'Search Lessons',
-  description: 'Search all RxProfile lessons by title, topic, or vocabulary.',
+  description: 'Search the medical information and services available from Dr. Aysharja Laxmi Podder.',
 }
 
 export default function SearchPage() {

@@ -18,6 +18,14 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(config.url.site),
+  applicationName: config.app.name,
+  icons: {
+    icon: [
+      { url: `${config.url.basePath}/icon-192.png`, sizes: '192x192', type: 'image/png' },
+      { url: `${config.url.basePath}/icon-512.png`, sizes: '512x512', type: 'image/png' },
+    ],
+    apple: `${config.url.basePath}/icon-192.png`,
+  },
   title: {
     default: config.seo.defaultTitle,
     template: config.seo.titleTemplate,
@@ -66,11 +74,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="manifest" href="/manifest.json" />
+        <link rel="manifest" href={`${config.url.basePath}/manifest.json`} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
-      <body className={`${inter.variable} font-sans antialiased bg-gray-50 dark:bg-slate-900 min-h-dvh`}>
+      <body className={`${inter.variable} font-sans antialiased min-h-dvh`}>
         <ThemeProvider>
           <UiLanguageProvider>
             <SpecialityProvider>

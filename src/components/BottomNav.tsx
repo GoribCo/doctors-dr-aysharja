@@ -17,6 +17,12 @@ const icons = {
       <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
     </svg>
   ),
+  profile: (
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21a8 8 0 0 1 16 0" />
+    </svg>
+  ),
   review: (
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
@@ -36,6 +42,7 @@ export default function BottomNav() {
 
   const navItems = [
     { label: 'Home', href: '/', icon: icons.home },
+    { label: 'Profile', href: '/profile', icon: icons.profile },
     { label: 'Appointment', href: '/appointment', icon: icons.review },
     { label: 'Services', href: '/services', icon: icons.courses },
     { label: 'Contact', href: '/contact', icon: icons.settings },

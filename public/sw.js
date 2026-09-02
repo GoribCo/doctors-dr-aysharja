@@ -1,5 +1,7 @@
-const CACHE = 'rxprofile-v1'
+const CACHE = 'dr-aysharja-laxmi-podder-v1'
 const ASSETS = ['/']
+// const BASE_PATH = new URL('./', self.registration.scope).pathname
+// const ASSETS = [BASE_PATH]
 
 self.addEventListener('install', e => e.waitUntil(
   caches.open(CACHE).then(c => c.addAll(ASSETS))

@@ -6,7 +6,7 @@ export const dynamic = 'force-static'
 
 export const metadata: Metadata = {
   title: 'Settings',
-  description: 'Customize your RxProfile experience.',
+  description: 'Customize your Dr. Aysharja Laxmi Podder profile experience.',
 }
 
 export default function SettingsPage() {

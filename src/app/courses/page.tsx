@@ -7,8 +7,8 @@ import type { Metadata } from 'next'
 export const dynamic = 'force-static'
 
 export const metadata: Metadata = {
-  title: 'RxProfile – All Courses',
-  description: 'Browse all available language courses.',
+  title: 'All Courses',
+  description: 'Browse all available courses.',
 }
 
 export default function CoursesPage() {

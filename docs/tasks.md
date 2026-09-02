@@ -353,7 +353,7 @@ Do not automatically invent or translate medical information.
 
 ---
 
-### Task 14 — Theme / Dark Mode - IP
+### Task 14 — Theme / Dark Mode - Done
 
 ```text
 Adapt the existing theme system for the doctor website.
@@ -380,7 +380,7 @@ Do not create a second theme system.
 
 ---
 
-### Task 15 — PWA
+### Task 15 — PWA - DONE
 
 ```text
 Update the existing PWA implementation for the doctor website.
@@ -405,7 +405,7 @@ Keep GitHub Pages/static deployment compatibility.
 
 ---
 
-### Task 16 — SEO
+### Task 16 — SEO - IP
 
 ```text
 Update the existing SEO implementation for the doctor website.

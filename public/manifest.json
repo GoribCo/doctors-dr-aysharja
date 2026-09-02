@@ -1,8 +1,10 @@
 {
-  "name": "RxProfile",
-  "short_name": "RxProfile",
-  "description": "Learn languages step by step",
+  "name": "Dr. Aysharja Laxmi Podder",
+  "short_name": "Dr. Aysharja",
+  "description": "Professional medical profile, services, and appointment information for Dr. Aysharja Laxmi Podder.",
+  "lang": "en",
   "start_url": "/",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#f9fafb",
   "theme_color": "#4f46e5",
