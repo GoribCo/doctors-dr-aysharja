@@ -8,6 +8,8 @@ import ContentLanguageProvider from '@/components/ContentLanguageProvider'
 import BottomNav from '@/components/BottomNav'
 import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar'
 import StickyAppointmentCTA from '@/components/StickyAppointmentCTA'
+import SiteHeader from '@/components/SiteHeader'
+import { getAllDoctorContent } from '@/lib/doctorContent'
 import config from '@/config'
 
 const inter = Inter({
@@ -92,6 +94,11 @@ export default function RootLayout({
                 <div className="max-w-6xl mx-auto min-h-dvh lg:flex lg:items-start">
                   <BottomNav />
                   <main className="flex-1 min-w-0 min-h-dvh pb-24 lg:pb-0">
+                    <SiteHeader
+                        initialHome={getAllDoctorContent('bn').home as Record<string, unknown> | null}
+                        doctorName={config.doctor.name}
+                        phone={config.doctor.appointment.phone}
+                    />
                     {children}
                   </main>
                   <StickyAppointmentCTA />

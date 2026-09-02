@@ -41,19 +41,6 @@ export default function ProfileClient() {
 
   return (
     <div className="px-6 pb-28 pt-6 lg:pb-10">
-      <header className="mb-8 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Link href="/" aria-label="Back to home" className="inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-            <span aria-hidden="true" className="text-xl">←</span>
-          </Link>
-          <div>
-            <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">Dr. Aysharja Laxmi Podder</p>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Professional Profile</h1>
-          </div>
-        </div>
-        <ThemeToggle />
-      </header>
-
       {isLoading && <p className="text-slate-600 dark:text-slate-300">Loading profile...</p>}
       {error && <p className="text-slate-600 dark:text-slate-300">This profile could not be loaded.</p>}
       {content && !isLoading && !error && (

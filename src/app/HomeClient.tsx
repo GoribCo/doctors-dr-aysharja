@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useContentLanguage } from '@/components/ContentLanguageProvider'
 import { useDoctorContent } from '@/hooks/useDoctorContent'
-import SiteHeader from "@/components/SiteHeader";
 
 interface Props {
   doctorContent: any
@@ -44,11 +43,6 @@ export default function HomeClient({ doctorContent: initialContent, config }: Pr
   }, [])
 
   return <div className="homepage" data-visible={visible}>
-    <SiteHeader
-      initialHome={initialContent.home}
-        doctorName={config.doctor.name}
-        phone={config.doctor.appointment.phone}
-    />
     <main>
       <section className="hero-section" aria-labelledby="hero-title"><div className="hero-copy reveal"><p className="eyebrow">{text(home, 'heroEyebrow')}</p><h1 id="hero-title">{text(home, 'heroTitle')}</h1><p className="hero-name">{doctorName}</p><p className="hero-role">{text(home, 'credentials')} <span aria-hidden="true">&#183;</span> {text(home, 'specialization')}</p><p className="hero-description">{text(home, 'heroDescription')}</p><a href={phoneHref} className="button button-primary"><PhoneIcon /> {text(home, 'callToBook')}</a><p className="hero-note">{text(home, 'appointmentNote')} <span aria-hidden="true">&#183;</span> {text(home, 'consultationHours')}</p></div><div className="hero-portrait reveal reveal-delay"><div className="portrait-frame"><img src="/profile-images/image1.jpg" alt={doctorName} /></div><div className="portrait-caption"><span className="status-dot" /> {text(home, 'availability')} <small>{text(home, 'availabilityNote')}</small></div></div></section>
 
