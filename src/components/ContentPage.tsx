@@ -8,6 +8,7 @@ import { useSpeciality } from '@/components/SpecialityProvider'
 import ThemeToggle from '@/components/ThemeToggle'
 import { useDoctorContent } from '@/hooks/useDoctorContent'
 import type { DoctorSection } from '@/lib/doctorContent'
+import ContentPageTitle from "@/components/ContentPageTitle";
 
 interface ContentPageProps {
   sectionKey: string
@@ -53,6 +54,10 @@ export default function ContentPage({ sectionKey, title, description }: ContentP
 
   return (
     <div className="px-6 pb-28 lg:pb-10 pt-6 max-w-3xl mx-auto lg:mx-0">
+      <ContentPageTitle
+          eyebrow={sectionKey}
+          heading={title}
+          intro={description}/>
       {/* Content */}
       <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8 lg:p-10">
         {description && (

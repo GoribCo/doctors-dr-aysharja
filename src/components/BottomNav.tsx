@@ -2,8 +2,9 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import config from '@/config'
-import { useUiLang } from './UiLanguageProvider'
+import { navigation, isNavigationItemActive, type NavigationItem } from '@/lib/navigation'
 
 const icons = {
   home: (
@@ -34,47 +35,108 @@ const icons = {
       <circle cx="12" cy="12" r="3" />
     </svg>
   ),
+  more: (
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="5" cy="12" r="1" />
+      <circle cx="12" cy="12" r="1" />
+      <circle cx="19" cy="12" r="1" />
+    </svg>
+  ),
 }
 
-export default function BottomNav() {
-  const pathname = usePathname()
-  const { t } = useUiLang()
+function Chevron({ open }: { open: boolean }) {
+  return <svg aria-hidden="true" className={`h-4 w-4 transition-transform ${open ? 'rotate-180' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
+}
 
-  const navItems = [
-    { label: 'Home', href: '/', icon: icons.home },
-    { label: 'Profile', href: '/profile', icon: icons.profile },
-    { label: 'Appointment', href: '/appointment', icon: icons.review },
-    { label: 'Services', href: '/services', icon: icons.courses },
-    { label: 'Contact', href: '/contact', icon: icons.settings },
-  ]
+function AboutAccordion({ pathname, mobile = false }: { pathname: string; mobile?: boolean }) {
+  const about = navigation.primary.find(item => item.label === 'About') as NavigationItem
+  const childActive = about.children?.some(item => isNavigationItemActive(pathname, item.path)) ?? false
+  const [open, setOpen] = useState(childActive)
 
-  function isActive(href: string) {
-    if (href === '/') return pathname === '/'
-    if (href === '/contact') return pathname.startsWith('/contact')
-    if (href === '/appointment') return pathname.startsWith('/appointment')
-    if (href === '/services') return pathname.startsWith('/services')
-    return pathname.startsWith(href)
+  function toggle() {
+    setOpen(value => !value)
   }
+
+  useEffect(() => {
+    if (childActive) setOpen(true)
+  }, [childActive])
+
+  return (
+    <div className={mobile ? '' : 'flex flex-col'}>
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={mobile ? 'mobile-about-links' : 'desktop-about-links'}
+        onClick={toggle}
+        className={mobile
+          ? `flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${childActive ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white'}`
+          : `flex items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-left font-medium text-sm transition-colors ${childActive ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'}`}
+      >
+        <span className="flex items-center gap-3">{about.label}</span>
+        <Chevron open={open} />
+      </button>
+      <div
+        id={mobile ? 'mobile-about-links' : 'desktop-about-links'}
+        className={`grid transition-[grid-template-rows] duration-200 ease-out ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+        aria-hidden={!open}
+      >
+        <div className="min-h-0 overflow-hidden">
+          <div className={mobile ? 'ml-4' : 'ml-4'}>
+            {about.children?.map(item => {
+              const active = isNavigationItemActive(pathname, item.path)
+              return (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  tabIndex={open ? 0 : -1}
+                  className={mobile
+                    ? `block border-b border-gray-100 px-3 py-2.5 text-sm dark:border-gray-800 ${active ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-600 dark:text-gray-400'}`
+                    : `block rounded-xl px-3 py-2 text-sm ${active ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function BottomNav({ isAuthenticated = true }: { isAuthenticated?: boolean }) {
+  const pathname = usePathname()
+  const [moreOpen, setMoreOpen] = useState(false)
+
+  const iconFor = (path: string) => path === '/' ? icons.home : path === '/profile/' ? icons.profile : path === '/settings/' ? icons.settings : path === '/review/' ? icons.review : icons.courses
+  const primaryItems = navigation.primary.filter(item => !item.children)
+  const navItems = [...navigation.primary, ...(isAuthenticated ? navigation.authenticatedOnly : [])]
+
+  const mobileItems = ['/', '/profile/', '/services/', '/appointment/']
+    .map(path => primaryItems.find(item => item.path === path))
+    .filter((item): item is NavigationItem => Boolean(item))
+  const moreItems = navigation.primary.filter(item => !mobileItems.some(primary => primary.path === item.path) && item.path !== '/contact/')
+  const contact = navigation.primary.find(item => item.path === '/contact/')
 
   return (
     <>
       {/* ── Mobile bottom bar (hidden on lg+) ── */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 pb-[env(safe-area-inset-bottom)] backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border-t border-gray-200/60 dark:border-gray-700/60">
         <div className="max-w-md mx-auto flex items-center justify-around">
-          {navItems.map(item => {
-            const active = isActive(item.href)
+          {mobileItems.map(item => {
+            const active = isNavigationItemActive(pathname, item.path)
             return (
               <Link
-                key={item.href}
-                href={item.href}
-                className={`flex flex-col items-center gap-0.5 py-2 px-4 min-w-[56px] transition-colors ${
+                key={item.path}
+                href={item.path}
+                className={`flex flex-col items-center gap-0.5 py-2 px-4 min-w-14 transition-colors ${
                   active
                     ? 'text-indigo-600 dark:text-indigo-400'
                     : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
                 }`}
               >
                 <span className={`transition-transform ${active ? 'scale-110' : ''}`}>
-                  {item.icon}
+                  {iconFor(item.path)}
                 </span>
                 <span className={`text-[10px] font-medium ${active ? 'text-indigo-600 dark:text-indigo-400' : ''}`}>
                   {item.label}
@@ -82,6 +144,46 @@ export default function BottomNav() {
               </Link>
             )
           })}
+          <div className="relative">
+            {moreOpen && (
+              <div className="absolute bottom-full right-0 mb-2 w-52 rounded-xl border border-gray-200 bg-white p-2 shadow-xl dark:border-gray-700 dark:bg-gray-900">
+                {moreItems.map(item => (
+                  item.children ? <AboutAccordion key={item.path} pathname={pathname} mobile /> : (
+                  <Link
+                    key={item.path}
+                    href={item.path}
+                    onClick={() => setMoreOpen(false)}
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                      isNavigationItemActive(pathname, item.path)
+                        ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400'
+                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white'
+                    }`}
+                  >
+                    {iconFor(item.path)}
+                    {item.label}
+                  </Link>
+                  )
+                ))}
+                {contact && <Link href={contact.path} onClick={() => setMoreOpen(false)} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium ${isNavigationItemActive(pathname, contact.path) ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400' : 'text-gray-600 dark:text-gray-400'}`}>{iconFor(contact.path)}{contact.label}</Link>}
+                {isAuthenticated && navigation.authenticatedOnly.map(item => <Link key={item.path} href={item.path} onClick={() => setMoreOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-400">{iconFor(item.path)}{item.label}</Link>)}
+              </div>
+            )}
+            <button
+              type="button"
+              aria-expanded={moreOpen}
+              aria-haspopup="menu"
+              aria-label="More navigation options"
+              onClick={() => setMoreOpen(open => !open)}
+              className={`flex flex-col items-center gap-0.5 py-2 px-4 min-w-14 transition-colors ${
+                moreItems.some(item => item.children?.some(child => isNavigationItemActive(pathname, child.path)) || isNavigationItemActive(pathname, item.path)) || Boolean(contact && isNavigationItemActive(pathname, contact.path))
+                  ? 'text-indigo-600 dark:text-indigo-400'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+              }`}
+            >
+              {icons.more}
+              <span className="text-[10px] font-medium">More</span>
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -97,12 +199,12 @@ export default function BottomNav() {
 
         {/* Nav items */}
         <div className="flex-1 flex flex-col gap-1 px-3 py-4">
-          {navItems.map(item => {
-            const active = isActive(item.href)
+          {navItems.map(item => item.children ? <AboutAccordion key={item.path} pathname={pathname} /> : (() => {
+            const active = isNavigationItemActive(pathname, item.path)
             return (
               <Link
-                key={item.href}
-                href={item.href}
+                key={item.path}
+                href={item.path}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors font-medium text-sm ${
                   active
                     ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400'
@@ -110,12 +212,12 @@ export default function BottomNav() {
                 }`}
               >
                 <span className={active ? 'text-indigo-600 dark:text-indigo-400' : ''}>
-                  {item.icon}
+                  {iconFor(item.path)}
                 </span>
                 {item.label}
               </Link>
             )
-          })}
+          })())}
         </div>
 
         {/* Footer */}

@@ -6,6 +6,7 @@ import ThemeToggle from '@/components/ThemeToggle'
 import { useContentLanguage } from '@/components/ContentLanguageProvider'
 import { useDoctorContent } from '@/hooks/useDoctorContent'
 import config from '@/config'
+import ContentPageTitle from "@/components/ContentPageTitle";
 
 type ReviewContent = Record<string, unknown>
 type PatientReview = {
@@ -85,14 +86,10 @@ export default function ReviewClient() {
   return (
     <div className="px-5 pb-28 pt-6 sm:px-8 lg:pb-10 lg:pt-10">
       <div className="mx-auto max-w-4xl">
-        <div className="mb-10 flex items-start justify-between gap-6">
-          <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-teal-700 dark:text-teal-300">{text(review, 'eyebrow', 'Patient voice')}</p>
-            <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">{text(review, 'heading', 'Reviews and experiences')}</h1>
-            <p className="mt-3 max-w-xl text-sm leading-6 text-slate-600 dark:text-slate-300 sm:text-base">{text(review, 'intro', '')}</p>
-          </div>
-          <ThemeToggle />
-        </div>
+          <ContentPageTitle
+            eyebrow={text(review, 'eyebrow', 'Patient voice')}
+            heading={text(review, 'heading', 'Reviews and experiences')}
+            intro={text(review, 'intro', '')}/>
 
         <section className="grid gap-5 md:grid-cols-[1fr_1.35fr]">
           <div className="rounded-2xl bg-teal-800 p-6 text-white shadow-sm dark:bg-teal-950 sm:p-8">
