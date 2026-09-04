@@ -1,12 +1,16 @@
 import ThemeToggle from '@/components/ThemeToggle'
 import SettingsClient from './SettingsClient'
 import type { Metadata } from 'next'
+import { getDoctorName } from '@/lib/doctorContent'
 
 export const dynamic = 'force-static'
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const doctorName = getDoctorName('en');
+  return {
   title: 'Settings',
-  description: 'Customize your Dr. Aysharja Laxmi Podder profile experience.',
+  description: `Customize your ${doctorName} profile experience.`,
+  }
 }
 
 export default function SettingsPage() {

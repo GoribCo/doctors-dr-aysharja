@@ -1,6 +1,6 @@
 ---
 title: "Qualifications"
-description: "Qualifications of Dr. Aysharja Laxmi Podder"
+description: "Qualifications of {{doctorName}}"
 ---
 
 - **MBBS** - Dhaka Medical College, Dhaka - 2008

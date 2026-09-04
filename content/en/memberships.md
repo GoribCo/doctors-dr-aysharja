@@ -1,6 +1,6 @@
 ---
 title: "Professional Memberships"
-description: "Professional Memberships of Dr. Aysharja Laxmi Podder"
+description: "Professional Memberships of {{doctorName}}"
 ---
 
 - **Bangladesh Medical Association (BMA)** - Member

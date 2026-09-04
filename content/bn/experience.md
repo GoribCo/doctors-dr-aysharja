@@ -1,6 +1,6 @@
 ---
 title: "Experience"
-description: "Professional experience of Dr. Aysharja Laxmi Podder"
+description: "Professional experience of {{doctorName}}"
 ---
 
 - **Senior Consultant, Internal Medicine** - Apollo Hospitals, Dhaka - 2018 - Present

@@ -1,6 +1,6 @@
 ---
 title: "Home"
-doctorName: "Dr. Aysharja Laxmi Podder"
+doctorName: "{{doctorName}}"
 phone: "+8801712345678"
 brandSubtitle: "Medical portfolio"
 heroEyebrow: "Compassionate care, thoughtfully delivered"
@@ -14,7 +14,7 @@ availability: "Taking appointments"
 availabilityNote: "[Confirm availability]"
 introLabel: "Meet your doctor"
 introTitle: "Care that begins with listening."
-introText: "Dr. Aysharja Laxmi Podder brings a thoughtful, patient-first approach to every consultation. Her aim is to make medical care feel clear, respectful, and tailored to the person in front of her."
+introText: "{{doctorName}} brings a thoughtful, patient-first approach to every consultation. Her aim is to make medical care feel clear, respectful, and tailored to the person in front of her."
 learnMore: "Learn more about Dr. Aysharja"
 servicesLabel: "Areas of care"
 servicesTitle: "Support for every step."
@@ -43,4 +43,4 @@ callToBook: "Call to book"
 footerAddress: "[Add chamber / clinic name] · [Add address]"
 ---
 
-Homepage content for Dr. Aysharja Laxmi Podder.
+Homepage content for {{doctorName}}.

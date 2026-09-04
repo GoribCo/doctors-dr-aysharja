@@ -1,6 +1,6 @@
 ---
 title: "Contact"
-description: "Contact information for Dr. Aysharja Laxmi Podder"
+description: "Contact information for {{doctorName}}"
 chambers:
 	- name: "চেম্বারের তথ্য নিশ্চিত করা হবে"
 	  address: "বর্তমান চেম্বারের ঠিকানার জন্য ক্লিনিকে ফোন করুন।"

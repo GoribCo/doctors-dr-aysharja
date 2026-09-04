@@ -1,6 +1,6 @@
 ---
 title: "Chamber"
-description: "Clinic and chamber details for Dr. Aysharja Laxmi Podder"
+description: "Clinic and chamber details for {{doctorName}}"
 ---
 
 # Chamber

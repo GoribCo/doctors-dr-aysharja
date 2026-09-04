@@ -1,7 +1,8 @@
 ---
 title: "Profile"
-description: "Profile of Dr. Aysharja Laxmi Podder"
-doctorName: "Dr. Aysharja Laxmi Podder"
+description: "Profile of {{doctorName}}"
+salutation: "Dr."
+doctorName: "Aysharja Laxmi Podder"
 designation: "Gynecologist & Obstetrician"
 affiliation: "[Add hospital / chamber name]"
 role: "Consultant"
@@ -16,4 +17,4 @@ specializationTags:
   - "Obstetrics"
 ---
 
-Profile introduction for Dr. Aysharja Laxmi Podder.
+Profile introduction for {{doctorName}}.

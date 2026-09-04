@@ -1,10 +1,14 @@
 import type { Metadata } from 'next'
 import {getSectionContent} from '@/lib/doctorContent'
 import ProfileClient from './ProfileClient'
+import { getDoctorName } from '@/lib/doctorContent'
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const doctorName = getDoctorName('en');
+  return {
   title: 'Professional Profile',
-  description: 'Meet Dr. Aysharja Laxmi Podder and learn about her approach to patient care.',
+  description: `Meet ${doctorName} and learn about her approach to patient care.`,
+  }
 }
 
 export default function ProfilePage() {

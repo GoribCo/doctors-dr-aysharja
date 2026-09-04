@@ -34,6 +34,39 @@ function getContentDir(lang: ContentLanguage = DEFAULT_CONTENT_LANG): string {
   return path.join(process.cwd(), 'content', lang)
 }
 
+export function getDoctorName(lang: ContentLanguage = DEFAULT_CONTENT_LANG): string {
+  const cacheKey = `${lang}:doctor_name`
+  if (contentCache.has(cacheKey)) {
+    return contentCache.get(cacheKey)
+  }
+
+  const profilePath = path.join(getContentDir(lang), 'profile.md')
+  let name = ''
+  if (fs.existsSync(profilePath)) {
+    const raw = fs.readFileSync(profilePath, 'utf-8')
+    const { data } = matter(raw)
+    if (data.doctorName) name = data.doctorName as string
+  }
+  
+  if (!name && lang !== 'en') {
+    name = getDoctorName('en')
+  }
+  if (!name) name = 'Doctor'
+  
+  contentCache.set(cacheKey, name)
+  return name
+}
+
+function replaceTemplateVars(text: string, vars: Record<string, string>): string {
+  if (!text || typeof text !== 'string') return text;
+  let result = text;
+  for (const [key, value] of Object.entries(vars)) {
+    const regex = new RegExp(`{{${key}}}`, 'g');
+    result = result.replace(regex, value);
+  }
+  return result;
+}
+
 export function getSectionContent(filename: string, lang: ContentLanguage = DEFAULT_CONTENT_LANG): DoctorSection | null {
   const contentDir = getContentDir(lang)
   const cacheKey = `${lang}:${filename}`
@@ -53,11 +86,25 @@ export function getSectionContent(filename: string, lang: ContentLanguage = DEFA
   const hasStructuredDetails = parsedChambers.length > 0
   const isVisible = !content.includes('TODO') || hasStructuredDetails
 
+  const doctorName = getDoctorName(lang)
+  const templateVars = { doctorName }
+  
+  const finalContent = filename === 'profile.md' ? content : replaceTemplateVars(content, templateVars)
+  const finalData = { ...data }
+  
+  if (filename !== 'profile.md') {
+    for (const key in finalData) {
+      if (typeof finalData[key] === 'string') {
+        finalData[key] = replaceTemplateVars(finalData[key] as string, templateVars)
+      }
+    }
+  }
+
   const result = {
-    ...data,
-    title: (data.title as string) || '',
-    description: (data.description as string) || '',
-    content,
+    ...finalData,
+    title: (finalData.title as string) || '',
+    description: (finalData.description as string) || '',
+    content: finalContent,
     isVisible,
     chambers: parsedChambers.length > 0 ? parsedChambers : undefined,
   }
@@ -86,13 +133,17 @@ export function getServicesList(lang: ContentLanguage = DEFAULT_CONTENT_LANG): D
     // If the content includes "TODO", we hide the service.
     const isVisible = !content.includes('TODO');
 
+    const doctorName = getDoctorName(lang)
+    const templateVars = { doctorName }
+    const finalContent = replaceTemplateVars(content, templateVars)
+    
     return {
       id: filename.replace('.md', ''),
-      title: (data.title as string) || '',
-      shortDescription: (data.shortDescription as string) || '',
+      title: replaceTemplateVars((data.title as string) || '', templateVars),
+      shortDescription: replaceTemplateVars((data.shortDescription as string) || '', templateVars),
       icon: (data.icon as string) || undefined,
       image: (data.image as string) || undefined,
-      content,
+      content: finalContent,
       isVisible
     }
   })

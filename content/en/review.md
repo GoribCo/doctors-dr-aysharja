@@ -1,6 +1,6 @@
 ---
 title: "Patient Reviews"
-description: "Patient feedback and reviews for Dr. Aysharja Laxmi Podder."
+description: "Patient feedback and reviews for {{doctorName}}."
 eyebrow: "Patient voice"
 heading: "Reviews and experiences"
 intro: "Every patient journey is different. Read shared experiences or tell us about your visit."
@@ -52,4 +52,4 @@ reviews:
     status: "approved"
 ---
 
-Patient reviews for Dr. Aysharja Laxmi Podder.
+Patient reviews for {{doctorName}}.
