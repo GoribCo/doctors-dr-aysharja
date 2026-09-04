@@ -70,8 +70,9 @@ export default function ProfileClient({initialProfile}: {initialProfile: DoctorS
                         introduction</p><h1 id="profile-title">{profile.doctorName}</h1><p
                         className="profile-designation">{profile.designation}</p></div>
                     <figure className="profile-portrait profile-reveal profile-reveal-delay">
-                        <div className="profile-portrait-frame"><img src={doctor.profileImage}
-                                                                     alt={`Portrait of ${profile.doctorName}`}/></div>
+                        <div className="profile-portrait-frame">
+                            <img src={`${config.url.basePath}`+`${doctor.profileImage}`} alt={`Portrait of ${profile.doctorName}`}/>
+                        </div>
                     </figure>
                 </section>
 

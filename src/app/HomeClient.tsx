@@ -7,7 +7,18 @@ import {useDoctorContent} from '@/hooks/useDoctorContent'
 
 interface Props {
     doctorContent: any
-    config: { doctor: { name: string; appointment: { phone?: string | null } } }
+    config: {
+        doctor: {
+            name: string;
+            appointment: {
+                phone?: string | null
+            }
+        }
+        url: {
+            site: string;
+            basePath: string
+        },
+    }
 }
 
 function text(content: Record<string, unknown>, key: string, fallback = '') {
@@ -67,7 +78,7 @@ export default function HomeClient({doctorContent: initialContent, config}: Prop
                         aria-hidden="true">&#183;</span> {text(home, 'consultationHours')}</p>
                 </div>
                 <div className="hero-portrait reveal reveal-delay">
-                    <div className="portrait-frame"><img src="/dr-aysharja/assets/images/profile-images/image1.jpg" alt={doctorName}/></div>
+                    <div className="portrait-frame"><img src={`${config.url.basePath}/assets/images/profile-images/image1.jpg`} alt={doctorName}/></div>
                     <div className="portrait-caption"><span className="status-dot"/> {text(home, 'availability')}
                         <small>{text(home, 'availabilityNote')}</small>
                     </div>

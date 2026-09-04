@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 import type { ContentLanguage } from '@/lib/doctorContent'
+import config from "@/config";
 
 const STORAGE_KEY = 'rxprofile_content_lang'
 const DEFAULT_CONTENT_LANG: ContentLanguage = 'bn'
@@ -28,7 +29,7 @@ export default function ContentLanguageProvider({ children }: { children: React.
 
   useEffect(() => {
     // Fetch available languages from API
-    fetch('/dr-aysharja/api/available-languages')
+    fetch(`${config.url.basePath}/api/available-languages`)
       .then(res => res.json())
       .then(data => {
         const available = data.languages as ContentLanguage[]
