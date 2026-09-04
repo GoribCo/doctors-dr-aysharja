@@ -1,6 +1,6 @@
 ---
 title: "Speciality"
-description: "Speciality of Dr. Aysharja Laxmi Podder"
+description: "Speciality of {{doctorName}}"
 ---
 
 - **Internal Medicine**

@@ -4,8 +4,8 @@
 const config = {
   // ── Doctor Profile ────────────────────────────────────────────────────────
   doctor: {
-    name: 'Aysharja Laxmi Podder',
-    professionalTitle: 'Dr. Aysharja Laxmi Podder',
+    name: process.env.NEXT_PUBLIC_DOCTOR_NAME || 'Doctor',
+    professionalTitle: `Dr. ${process.env.NEXT_PUBLIC_DOCTOR_NAME || 'Doctor'}`,
     speciality: 'Gynecologist & Obstetrician',
     qualification: 'TODO',
     profileImage: '/assets/images/profile-images/image2.jpg',
@@ -34,7 +34,7 @@ const config = {
 
   // ── Site identity ──────────────────────────────────────────────────────────
   app: {
-    name: 'Dr. Aysharja Laxmi Podder',
+    name: process.env.NEXT_PUBLIC_DOCTOR_NAME || 'Doctor Profile',
     version: '0.1.0',
     tagline: 'Professional Medical Profile',
     language: 'bn',
@@ -55,11 +55,11 @@ const config = {
 
   // ── SEO defaults ──────────────────────────────────────────────────────────
   seo: {
-    defaultTitle: 'Dr. Aysharja Laxmi Podder - Professional Profile',
-    titleTemplate: '%s | Dr. Aysharja Laxmi Podder',
+    defaultTitle: `${process.env.NEXT_PUBLIC_DOCTOR_NAME || 'Doctor'} - Professional Profile`,
+    titleTemplate: `%s | ${process.env.NEXT_PUBLIC_DOCTOR_NAME || 'Doctor'}`,
     defaultDescription:
-      'Professional profile, medical services, and appointment booking for Dr. Aysharja Laxmi Podder.',
-    keywords: ['doctor', 'medical', 'Aysharja Laxmi Podder', 'TODO'],
+      `Professional profile, medical services, and appointment booking for ${process.env.NEXT_PUBLIC_DOCTOR_NAME || 'the doctor'}.`,
+    keywords: ['doctor', 'medical', process.env.NEXT_PUBLIC_DOCTOR_NAME || 'TODO'],
   },
 
   // ── Theme ──────────────────────────────────────────────────────────────────

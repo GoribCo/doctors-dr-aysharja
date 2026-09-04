@@ -1,6 +1,6 @@
 ---
 title: "Articles"
-description: "Health articles and publications by Dr. Aysharja Laxmi Podder"
+description: "Health articles and publications by {{doctorName}}"
 ---
 
 # Articles

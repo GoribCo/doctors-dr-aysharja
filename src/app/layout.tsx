@@ -11,6 +11,7 @@ import StickyAppointmentCTA from '@/components/StickyAppointmentCTA'
 import SiteHeader from '@/components/layouts/SiteHeader'
 import { getAllDoctorContent } from '@/lib/doctorContent'
 import config from '@/config'
+import { getDoctorName } from '@/lib/doctorContent'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -18,45 +19,48 @@ const inter = Inter({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
-  metadataBase: new URL(config.url.site),
-  applicationName: config.app.name,
-  icons: {
-    icon: [
-      { url: `${config.url.basePath}/icon-192.png`, sizes: '192x192', type: 'image/png' },
-      { url: `${config.url.basePath}/icon-512.png`, sizes: '512x512', type: 'image/png' },
-    ],
-    apple: `${config.url.basePath}/icon-192.png`,
-  },
-  title: {
-    default: config.seo.defaultTitle,
-    template: config.seo.titleTemplate,
-  },
-  description: config.seo.defaultDescription,
-  keywords: [...config.seo.keywords],
-  authors: [{ name: config.app.name }],
-  creator: config.app.name,
-  openGraph: {
-    title: config.seo.defaultTitle,
-    description: config.seo.defaultDescription,
-    url: config.url.site,
-    siteName: config.app.name,
-    locale: 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary',
-    title: config.seo.defaultTitle,
-    description: config.seo.defaultDescription,
-  },
-  alternates: {
-    canonical: config.url.site,
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true },
-  },
+export async function generateMetadata(): Promise<Metadata> {
+  const doctorName = getDoctorName('en');
+  return {
+    metadataBase: new URL(config.url.site),
+    applicationName: doctorName,
+    icons: {
+      icon: [
+        { url: `${config.url.basePath}/icon-192.png`, sizes: '192x192', type: 'image/png' },
+        { url: `${config.url.basePath}/icon-512.png`, sizes: '512x512', type: 'image/png' },
+      ],
+      apple: `${config.url.basePath}/icon-192.png`,
+    },
+    title: {
+      default: `${doctorName} - Professional Profile`,
+      template: `%s | ${doctorName}`,
+    },
+    description: `Professional profile, medical services, and appointment booking for ${doctorName}.`,
+    keywords: ['doctor', 'medical', doctorName, 'TODO'],
+    authors: [{ name: doctorName }],
+    creator: doctorName,
+    openGraph: {
+      title: `${doctorName} - Professional Profile`,
+      description: `Professional profile, medical services, and appointment booking for ${doctorName}.`,
+      url: config.url.site,
+      siteName: doctorName,
+      locale: 'en_US',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary',
+      title: `${doctorName} - Professional Profile`,
+      description: `Professional profile, medical services, and appointment booking for ${doctorName}.`,
+    },
+    alternates: {
+      canonical: config.url.site,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true },
+    },
+  }
 }
 
 export const viewport: Viewport = {
@@ -96,7 +100,7 @@ export default function RootLayout({
                   <main className="flex-1 min-w-0 min-h-dvh pb-24 lg:pb-0">
                     <SiteHeader
                         initialHome={getAllDoctorContent('bn').home as Record<string, unknown> | null}
-                        doctorName={config.doctor.name}
+                        doctorName={getDoctorName('bn')}
                         phone={config.doctor.appointment.phone}
                     />
                     {children}

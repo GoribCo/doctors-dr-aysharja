@@ -1,6 +1,6 @@
 ---
 title: "Publications"
-description: "Publications by Dr. Aysharja Laxmi Podder"
+description: "Publications by {{doctorName}}"
 ---
 
 - *Cardiovascular Risk Factors in Urban Bangladesh* - Journal of Bangladesh College of Physicians and Surgeons, 2019

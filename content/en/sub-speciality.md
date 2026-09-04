@@ -1,6 +1,6 @@
 ---
 title: "Sub-speciality"
-description: "Sub-specialities of Dr. Aysharja Laxmi Podder"
+description: "Sub-specialities of {{doctorName}}"
 ---
 
 - **Echocardiography**

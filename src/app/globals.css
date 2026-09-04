@@ -166,7 +166,7 @@
   .language-select { appearance: none; border: 1px solid var(--line); border-radius: 3px; background: transparent; color: var(--ink); cursor: pointer; font-size: 11px; font-weight: 700; padding: 9px 8px; }
   .language-select:focus { outline: 2px solid #8fc7c0; outline-offset: 2px; }
   .header-phone, .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; text-decoration: none; transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }
-  .header-phone { background: var(--teal); color: white; border-radius: 3px; padding: 11px 16px; font-size: 12px; font-weight: 700; }
+  .header-phone { background: var(--color-primary-600); color: white; border-radius: 3px; padding: 11px 16px; font-size: 12px; font-weight: 700; }
   .header-phone:hover, .button:hover { transform: translateY(-2px); box-shadow: 0 10px 24px #176f7330; }
   .hero-section { display: grid; grid-template-columns: minmax(0, 1fr) 390px; align-items: center; gap: 10%; padding-top: 80px; padding-bottom: 96px; }
   .hero-copy { max-width: 590px; }
@@ -179,7 +179,7 @@
   .hero-description { color: var(--muted); font-size: 16px; line-height: 1.7; max-width: 450px; margin: 25px 0 28px; }
   .button { border-radius: 3px; font-size: 13px; font-weight: 700; padding: 14px 20px; }
   .button-primary { background: var(--teal); color: white; }
-  .button-light { background: white; color: var(--teal); margin-top: 10px; }
+  .button-light { background: white; color: var(--ink); margin-top: 10px; }
   .hero-note { color: var(--muted); font-size: 11px; margin-top: 14px; }
   .hero-portrait { max-width: 390px; justify-self: end; }
   .portrait-frame { aspect-ratio: 4 / 5; overflow: hidden; border-radius: 46% 46% 4px 4px; background: var(--mint); }

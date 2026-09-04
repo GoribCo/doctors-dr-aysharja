@@ -1,6 +1,6 @@
 ---
 title: "Contact"
-description: "Contact information for Dr. Aysharja Laxmi Podder"
+description: "Contact information for {{doctorName}}"
 chambers:
 	- name: "Chamber details to be confirmed"
 	  address: "Please call the clinic for the current chamber address."

@@ -1,6 +1,6 @@
 ---
 title: "Services"
-description: "Medical services provided by Dr. Aysharja Laxmi Podder"
+description: "Medical services provided by {{doctorName}}"
 ---
 
 # Services

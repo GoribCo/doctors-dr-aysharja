@@ -1,6 +1,6 @@
 ---
 title: "Languages"
-description: "Languages spoken by Dr. Aysharja Laxmi Podder"
+description: "Languages spoken by {{doctorName}}"
 ---
 
 - **Bengali** (Native)

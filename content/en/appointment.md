@@ -1,6 +1,6 @@
 ---
 title: "Appointment"
-description: "How to book an appointment with Dr. Aysharja Laxmi Podder"
+description: "How to book an appointment with {{doctorName}}"
 chambers:
 	- name: "Chamber details to be confirmed"
 	  address: "Please call the clinic for the current chamber address."
