@@ -8,7 +8,7 @@ const config = {
     professionalTitle: 'Dr. Aysharja Laxmi Podder',
     speciality: 'Gynecologist & Obstetrician',
     qualification: 'TODO',
-    profileImage: '/dr-aysharja/assets/images/profile-images/image2.jpg',
+    profileImage: '/assets/images/profile-images/image2.jpg',
     contact: {
       phone: 'TODO',
       email: 'TODO',
