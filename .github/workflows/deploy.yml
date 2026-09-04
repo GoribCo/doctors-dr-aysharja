@@ -35,7 +35,7 @@ jobs:
       - name: Build
         env:
           # Sets the base path so assets resolve correctly under /rxprofile
-          NEXT_PUBLIC_BASE_PATH: /rxprofile
+          NEXT_PUBLIC_BASE_PATH: /dr-aysharja
           # Set your production URL here (used for sitemap + canonical tags)
           NEXT_PUBLIC_SITE_URL: https://goribco.github.io/dr-aysharja
         run: npm run build

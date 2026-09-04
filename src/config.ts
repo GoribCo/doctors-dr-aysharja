@@ -44,7 +44,7 @@ const config = {
   // Override with NEXT_PUBLIC_SITE_URL env var in production.
   // Override with NEXT_PUBLIC_BASE_PATH for GitHub Pages sub-directory deploys.
   url: {
-    site: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://rxprofile.app',
+    site: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://goribco.github.io/dr-aysharja',
     basePath: process.env.NEXT_PUBLIC_BASE_PATH ?? '',
   },
 
