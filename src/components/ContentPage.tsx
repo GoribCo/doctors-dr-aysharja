@@ -54,22 +54,26 @@ export default function ContentPage({ sectionKey, title, description }: ContentP
   }
 
   return (
-    <div className="px-6 pb-28 lg:pb-10 pt-6 max-w-3xl mx-auto lg:mx-0">
-      <ContentPageTitle
-          eyebrow={sectionKey}
-          heading={title}
-          intro={pageDescription}/>
-      {/* Content */}
-      <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8 lg:p-10">
-        {pageDescription && (
-          <p className="text-gray-600 dark:text-gray-300 mb-6 pb-6 border-b border-gray-200 dark:border-gray-700 text-base lg:text-lg">
-            {pageDescription}
-          </p>
-        )}
-        <div className="prose dark:prose-invert max-w-none">
-          <ReactMarkdown>{section.content}</ReactMarkdown>
-        </div>
-      </section>
-    </div>
+      <div className="px-5 pb-28 pt-6 sm:px-8 lg:pb-10 lg:pt-10">
+        <ContentPageTitle
+            eyebrow={sectionKey}
+            heading={title}
+            intro={pageDescription}/>
+        {/* Content */}
+          <section
+              className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800 sm:p-8"
+              aria-labelledby="appointment-link-heading">
+              {/*<h2 id="appointment-link-heading" className="text-xl font-semibold text-slate-900 dark:text-white">*/}
+              {/*    {title}*/}
+              {/*</h2>*/}
+              {/*<p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400 mb-8">*/}
+              {/*    {pageDescription}*/}
+              {/*</p>*/}
+
+              <div className="prose dark:prose-invert max-w-none">
+                  <ReactMarkdown>{section.content}</ReactMarkdown>
+              </div>
+          </section>
+      </div>
   )
 }
