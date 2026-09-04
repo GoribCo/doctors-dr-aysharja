@@ -10,7 +10,7 @@ export function useDoctorContent(lang: ContentLanguage) {
     setIsLoading(true)
     setError(null)
 
-    fetch(`/api/doctor-content/${lang}`)
+    fetch(`/dr-aysharja/api/doctor-content/${lang}`)
       .then(res => res.json())
       .then(data => {
         setContent(data)

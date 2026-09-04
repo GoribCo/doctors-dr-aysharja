@@ -28,7 +28,7 @@ export default function ContentLanguageProvider({ children }: { children: React.
 
   useEffect(() => {
     // Fetch available languages from API
-    fetch('/api/available-languages')
+    fetch('/dr-aysharja/api/available-languages')
       .then(res => res.json())
       .then(data => {
         const available = data.languages as ContentLanguage[]
