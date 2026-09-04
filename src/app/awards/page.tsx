@@ -10,6 +10,5 @@ export default function AwardsPage() {
   return <ContentPage 
     sectionKey="awards"
     title="Awards & Recognition"
-    description="Awards, honors, and recognition received"
   />
 }

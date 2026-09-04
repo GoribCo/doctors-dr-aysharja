@@ -1,8 +1,9 @@
 ---
 title: "Contact"
 description: "Contact information for Dr. Aysharja Laxmi Podder"
+chambers:
+	- name: "Chamber details to be confirmed"
+	  address: "Please call the clinic for the current chamber address."
 ---
 
-# Contact
-
-TODO: Add phone numbers, email, and social links.
+Please contact the clinic directly for appointment enquiries and current chamber information.

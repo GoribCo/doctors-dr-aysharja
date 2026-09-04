@@ -29,7 +29,7 @@ export default function SiteHeader({ initialHome, doctorName, phone: configuredP
 
   return <header className="site-header">
     <div className="site-header-inner">
-      <Link href="/" className="brand" aria-label={`${doctorName} home`}>
+      <Link href="/public" className="brand" aria-label={`${doctorName} home`}>
         <span className="brand-mark">ALP</span>
         <span><strong>{doctorName}</strong>
                   <small>{text(home, 'brandSubtitle')}</small>

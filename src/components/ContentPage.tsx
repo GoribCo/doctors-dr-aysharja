@@ -23,6 +23,7 @@ export default function ContentPage({ sectionKey, title, description }: ContentP
   const { content: data, isLoading, error } = useDoctorContent(contentLang)
 
   const section: DoctorSection | null = data?.[sectionKey] || null
+  const pageDescription = description ?? section?.description
 
   if (isLoading) {
     return (
@@ -57,12 +58,12 @@ export default function ContentPage({ sectionKey, title, description }: ContentP
       <ContentPageTitle
           eyebrow={sectionKey}
           heading={title}
-          intro={description}/>
+          intro={pageDescription}/>
       {/* Content */}
       <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-8 lg:p-10">
-        {description && (
+        {pageDescription && (
           <p className="text-gray-600 dark:text-gray-300 mb-6 pb-6 border-b border-gray-200 dark:border-gray-700 text-base lg:text-lg">
-            {description}
+            {pageDescription}
           </p>
         )}
         <div className="prose dark:prose-invert max-w-none">

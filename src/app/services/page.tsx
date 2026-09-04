@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import ContentPage from '@/components/ContentPage'
+import ServicesClient from './ServicesClient'
 
 export const metadata: Metadata = {
   title: 'Services',
@@ -7,11 +7,5 @@ export const metadata: Metadata = {
 }
 
 export default function ServicesPage() {
-  return (
-    <ContentPage
-      sectionKey="services"
-      title="Services"
-      description="Medical services and specialised care offered."
-    />
-  )
+  return <ServicesClient />
 }

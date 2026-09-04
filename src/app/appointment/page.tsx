@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import ContentPage from '@/components/ContentPage'
+import AppointmentClient from './AppointmentClient'
 
 export const metadata: Metadata = {
   title: 'Appointment',
@@ -7,11 +7,5 @@ export const metadata: Metadata = {
 }
 
 export default function AppointmentPage() {
-  return (
-    <ContentPage
-      sectionKey="appointment"
-      title="Appointment"
-      description="Book an appointment by phone or contact the clinic directly."
-    />
-  )
+  return <AppointmentClient />
 }

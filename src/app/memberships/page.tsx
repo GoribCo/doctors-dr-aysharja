@@ -10,6 +10,5 @@ export default function MembershipsPage() {
   return <ContentPage 
     sectionKey="memberships"
     title="Memberships"
-    description="Professional memberships and associations"
   />
 }

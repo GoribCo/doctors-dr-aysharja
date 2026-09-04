@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import ContentPage from '@/components/ContentPage'
+import ContactClient from './ContactClient'
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -7,11 +7,5 @@ export const metadata: Metadata = {
 }
 
 export default function ContactPage() {
-  return (
-    <ContentPage
-      sectionKey="contact"
-      title="Contact"
-      description="Contact details and clinic information."
-    />
-  )
+  return <ContactClient />
 }

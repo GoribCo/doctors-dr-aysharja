@@ -5,4 +5,4 @@ description: "Medical services provided by Dr. Aysharja Laxmi Podder"
 
 # Services
 
-TODO: Add list of medical services provided.
+সমন্বিত চিকিৎসা মূল্যায়ন এবং নিয়মিত সেবার জন্য উপলভ্য পরিষেবা।

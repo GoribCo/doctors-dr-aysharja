@@ -5,14 +5,19 @@ const config = {
   // ── Doctor Profile ────────────────────────────────────────────────────────
   doctor: {
     name: 'Aysharja Laxmi Podder',
-    professionalTitle: 'TODO',
-    speciality: 'TODO',
+    professionalTitle: 'Dr. Aysharja Laxmi Podder',
+    speciality: 'Gynecologist & Obstetrician',
     qualification: 'TODO',
-    profileImage: 'TODO', // Path to public folder image, e.g., '/images/profile.jpg'
+    profileImage: '/profile-images/image2.jpg',
     contact: {
       phone: 'TODO',
       email: 'TODO',
+      whatsapp: null as string | null,
       location: 'TODO',
+      mapCoordinates: {
+        latitude: null as number | null,
+        longitude: null as number | null,
+      },
     },
     socialLinks: {
       facebook: 'TODO',

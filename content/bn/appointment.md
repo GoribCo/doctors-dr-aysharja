@@ -1,12 +1,15 @@
 ---
 title: "Appointment"
 description: "How to book an appointment with Dr. Aysharja Laxmi Podder"
+chambers:
+	- name: "চেম্বারের তথ্য নিশ্চিত করা হবে"
+	  address: "বর্তমান চেম্বারের ঠিকানার জন্য ক্লিনিকে ফোন করুন।"
+	  visitingDays: "অ্যাপয়েন্টমেন্ট অনুযায়ী"
+	  visitingHours: "সময় জানার জন্য ফোন করুন"
+	  googleMapsUrl: ""
 ---
 
-# Appointment
+পরামর্শ এবং অ্যাপয়েন্টমেন্ট নির্ধারণের জন্য সরাসরি ক্লিনিকে ফোন করুন।
 
-For consultation and appointment scheduling, please call the clinic directly.
-
-- Phone: +8801712345678
-- Call during clinic hours for the most convenient appointment slot.
-- For future integrations, appointment booking can be expanded to an external service or API without changing the UI contract.
+- সুবিধাজনক সময় পেতে ক্লিনিকের সময়সূচির মধ্যে ফোন করুন।
+- প্রাসঙ্গিক মেডিকেল রিপোর্ট, প্রেসক্রিপশন এবং পরিচয়পত্র সঙ্গে আনুন।

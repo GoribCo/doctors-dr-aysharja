@@ -10,6 +10,5 @@ export default function ExperiencePage() {
   return <ContentPage 
     sectionKey="experience"
     title="Experience"
-    description="Professional experience and career history"
   />
 }
