@@ -7,11 +7,11 @@ import { useContentLanguage } from '@/components/ContentLanguageProvider'
 import { useSpeciality } from '@/components/SpecialityProvider'
 import ThemeToggle from '@/components/ThemeToggle'
 import { useDoctorContent } from '@/hooks/useDoctorContent'
-import type { DoctorSection } from '@/lib/doctorContent'
+import type { DoctorContent, DoctorSection } from '@/lib/doctorContent'
 import ContentPageTitle from "@/components/ContentPageTitle";
 
 interface ContentPageProps {
-  sectionKey: string
+  sectionKey: Exclude<keyof DoctorContent, 'servicesList'>
   title: string
   description?: string
 }
@@ -22,7 +22,7 @@ export default function ContentPage({ sectionKey, title, description }: ContentP
   const { speciality, theme } = useSpeciality()
   const { content: data, isLoading, error } = useDoctorContent(contentLang)
 
-  const section: DoctorSection | null = data?.[sectionKey] || null
+  const section: DoctorSection | null = data?.[sectionKey] ?? null
   const pageDescription = description ?? section?.description
 
   if (isLoading) {

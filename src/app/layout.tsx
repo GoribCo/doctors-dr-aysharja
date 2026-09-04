@@ -9,7 +9,7 @@ import BottomNav from '@/components/navs/BottomNav'
 import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar'
 import StickyAppointmentCTA from '@/components/StickyAppointmentCTA'
 import SiteHeader from '@/components/layouts/SiteHeader'
-import { getAllDoctorContent } from '@/lib/doctorContent'
+import { getAllDoctorContent, getDoctorContentByLanguage } from '@/lib/doctorContent'
 import config from '@/config'
 import { getDoctorName } from '@/lib/doctorContent'
 
@@ -77,6 +77,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const contentByLanguage = getDoctorContentByLanguage()
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -88,7 +90,7 @@ export default function RootLayout({
         <ThemeProvider>
           <UiLanguageProvider>
             <SpecialityProvider>
-              <ContentLanguageProvider>
+              <ContentLanguageProvider contentByLanguage={contentByLanguage}>
                 <ServiceWorkerRegistrar />
                 {/*
                   max-w-6xl caps the whole layout (sidebar + content) at 1152px.

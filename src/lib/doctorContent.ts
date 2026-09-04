@@ -177,6 +177,16 @@ export function getAllDoctorContent(lang: ContentLanguage = DEFAULT_CONTENT_LANG
   }
 }
 
+export type DoctorContent = ReturnType<typeof getAllDoctorContent>
+export type DoctorContentByLanguage = Partial<Record<ContentLanguage, DoctorContent>>
+
+/** Load every configured translation during the static build. */
+export function getDoctorContentByLanguage(): DoctorContentByLanguage {
+  return Object.fromEntries(
+    getAvailableContentLanguages().map(lang => [lang, getAllDoctorContent(lang)]),
+  ) as DoctorContentByLanguage
+}
+
 // Helper to check if a language's content directory exists
 export function contentLanguageExists(lang: ContentLanguage): boolean {
   return fs.existsSync(getContentDir(lang))
