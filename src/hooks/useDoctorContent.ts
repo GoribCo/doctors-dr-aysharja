@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { ContentLanguage } from '@/lib/doctorContent'
-
+import config from '@/config'
 export function useDoctorContent(lang: ContentLanguage) {
   const [content, setContent] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -10,7 +10,7 @@ export function useDoctorContent(lang: ContentLanguage) {
     setIsLoading(true)
     setError(null)
 
-    fetch(`/dr-aysharja/api/doctor-content/${lang}`)
+    fetch(`${config.url.basePath}/api/doctor-content/${lang}`)
       .then(res => res.json())
       .then(data => {
         setContent(data)
