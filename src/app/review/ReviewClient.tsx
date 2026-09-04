@@ -5,7 +5,6 @@ import Link from 'next/link'
 import ThemeToggle from '@/components/ThemeToggle'
 import { useContentLanguage } from '@/components/ContentLanguageProvider'
 import { useDoctorContent } from '@/hooks/useDoctorContent'
-import config from '@/config'
 import ContentPageTitle from "@/components/ContentPageTitle";
 
 type ReviewContent = Record<string, unknown>
@@ -62,7 +61,8 @@ export default function ReviewClient() {
     ? (approvedReviews.reduce((total, item) => total + item.rating, 0) / approvedReviews.length).toFixed(1)
     : '-'
   const reviewCount = approvedReviews.length
-  const mailConfigured = config.doctor.contact.email !== 'TODO'
+  const reviewEmail = content?.site.contact?.email
+  const mailConfigured = Boolean(reviewEmail)
 
   function submitReview(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -77,7 +77,7 @@ export default function ReviewClient() {
     ].join('\n')
 
     if (mailConfigured) {
-      window.location.href = `mailto:${config.doctor.contact.email}?subject=Patient review submission&body=${encodeURIComponent(message)}`
+      window.location.href = `mailto:${reviewEmail}?subject=Patient review submission&body=${encodeURIComponent(message)}`
     } else {
       setSubmitted(true)
     }

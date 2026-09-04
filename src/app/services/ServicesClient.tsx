@@ -5,7 +5,7 @@ import ContentPageTitle from '@/components/ContentPageTitle'
 import { useDoctorContent } from '@/hooks/useDoctorContent'
 import { getAppointmentAction } from '@/lib/appointment'
 import type { DoctorService } from '@/lib/doctorContent'
-import config from '@/config'
+import { useUiLang } from '@/components/UiLanguageProvider'
 
 function ServiceIcon({ name }: { name?: string }) {
   if (name === 'Heart') {
@@ -30,10 +30,11 @@ function ServiceIcon({ name }: { name?: string }) {
 
 export default function ServicesClient() {
   const { lang } = useContentLanguage()
+  const { t } = useUiLang()
   const { content: data, isLoading, error } = useDoctorContent(lang)
   const section = data?.services
   const services = (data?.servicesList ?? []) as DoctorService[]
-  const appointment = getAppointmentAction(config.doctor.appointment)
+  const appointment = getAppointmentAction(data?.site.appointment ?? {})
 
   if (isLoading) {
     return (
@@ -54,7 +55,7 @@ export default function ServicesClient() {
     return (
       <div className="px-5 pb-28 pt-10 text-center text-sm text-slate-500 dark:text-slate-400">
         <div>
-          <p className="text-gray-600 dark:text-gray-400">This section is not yet available.</p>
+          <p className="text-gray-600 dark:text-gray-400">{t.common.unavailable}</p>
         </div>
       </div>
     )
@@ -63,10 +64,10 @@ export default function ServicesClient() {
   return (
     <div className="px-5 pb-28 pt-6 sm:px-8 lg:pb-10 lg:pt-10">
       <div className="mx-auto max-w-4xl">
-        <ContentPageTitle eyebrow="services" heading="Services" intro={section.description} />
+        <ContentPageTitle eyebrow={t.doctor.servicesEyebrow} heading={section.title} intro={section.description} />
         <section aria-labelledby="services-list-heading" className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800 sm:p-8">
-          <h2 id="services-list-heading" className="sr-only">Available services</h2>
-          <ul className="grid list-none gap-4 p-0 sm:grid-cols-2" aria-label="Available services">
+          <h2 id="services-list-heading" className="sr-only">{t.doctor.availableServices}</h2>
+          <ul className="grid list-none gap-4 p-0 sm:grid-cols-2" aria-label={t.doctor.availableServices}>
             {services.map(service => (
               <li key={service.id}>
                 <article className="h-full rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
@@ -83,14 +84,14 @@ export default function ServicesClient() {
         {appointment.phone && (
           <section className="mt-6 flex flex-col items-start justify-between gap-5 rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60 sm:flex-row sm:items-center sm:p-7">
             <div>
-              <p className="text-sm font-semibold text-slate-900 dark:text-white">Ready to book a consultation?</p>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Call the clinic to arrange your appointment.</p>
+              <p className="text-sm font-semibold text-slate-900 dark:text-white">{t.doctor.consultationCtaHeading}</p>
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{t.doctor.consultationCtaText}</p>
             </div>
             <a
               href={`tel:${appointment.phone}`}
               className="w-full rounded-lg bg-teal-700 px-4 py-3 text-center text-sm font-semibold text-white transition hover:bg-teal-800 dark:bg-teal-600 dark:hover:bg-teal-500 sm:w-auto"
             >
-              Book an Appointment
+              {t.doctor.bookAppointment}
             </a>
           </section>
         )}

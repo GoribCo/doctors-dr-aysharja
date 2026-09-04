@@ -1,10 +1,11 @@
 'use client'
 
-import config from '@/config'
 import { getAppointmentAction } from '@/lib/appointment'
+import { useContentLanguage } from '@/components/ContentLanguageProvider'
 
 export default function StickyAppointmentCTA() {
-  const appointmentAction = getAppointmentAction(config.doctor.appointment)
+  const { content } = useContentLanguage()
+  const appointmentAction = getAppointmentAction(content?.site.appointment ?? {})
 
   if (appointmentAction.type === 'none') return null
 

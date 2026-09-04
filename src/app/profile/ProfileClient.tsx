@@ -7,6 +7,7 @@ import {useContentLanguage} from '@/components/ContentLanguageProvider'
 import {useDoctorContent} from '@/hooks/useDoctorContent'
 import type {DoctorSection} from '@/lib/doctorContent'
 import config from '@/config'
+import { useUiLang } from '@/components/UiLanguageProvider'
 
 interface ProfileContent {
     doctorName: string
@@ -36,10 +37,11 @@ export default function ProfileClient({initialProfile}: {initialProfile: DoctorS
     const [visible, setVisible] = useState(false)
     const pageRef = useRef<HTMLDivElement>(null)
     const {lang} = useContentLanguage()
+    const { t } = useUiLang()
     const {content, isLoading, error} = useDoctorContent(lang)
-    const doctor = config.doctor
     const profile = (content?.profile ?? initialProfile) as ProfileContent | null
-    const phone = doctor.appointment.phone
+    const site = content?.site
+    const phone = site?.appointment?.phone ?? ''
 
     useEffect(() => {
         const sections = pageRef.current?.querySelectorAll<HTMLElement>('[data-profile-reveal]')
@@ -66,50 +68,43 @@ export default function ProfileClient({initialProfile}: {initialProfile: DoctorS
         <div ref={pageRef} className="profile-page" data-visible={visible}>
             <div>
                 <section className="profile-hero" aria-labelledby="profile-title">
-                    <div className="profile-hero-copy profile-reveal"><p className="profile-eyebrow">A closer
-                        introduction</p><h1 id="profile-title">{profile.doctorName}</h1><p
+                    <div className="profile-hero-copy profile-reveal"><p className="profile-eyebrow">{t.doctor.profileEyebrow}</p><h1 id="profile-title">{profile.doctorName}</h1><p
                         className="profile-designation">{profile.designation}</p></div>
                     <figure className="profile-portrait profile-reveal profile-reveal-delay">
                         <div className="profile-portrait-frame">
-                            <img src={`${config.url.basePath}`+`${doctor.profileImage}`} alt={`Portrait of ${profile.doctorName}`}/>
+                            {site?.profileImage && <img src={`${config.url.basePath}${site.profileImage}`} alt={`Portrait of ${profile.doctorName}`}/>} 
                         </div>
                     </figure>
                 </section>
 
                 <section className="profile-section profile-bio profile-reveal" data-profile-reveal
                          aria-labelledby="bio-title">
-                    <div><p className="profile-section-label">In her own words</p><h2 id="bio-title">Care begins with
-                        listening.</h2></div>
+                    <div><p className="profile-section-label">{t.doctor.profileBioLabel}</p><h2 id="bio-title">{t.doctor.profileBioHeading}</h2></div>
                     <div className="profile-copy prose"><ReactMarkdown>{profile.bio}</ReactMarkdown></div>
                 </section>
                 <section className="profile-section profile-specialty profile-reveal" data-profile-reveal
                          aria-labelledby="specialty-title">
-                    <div><p className="profile-section-label">Areas of focus</p><h2 id="specialty-title">Focused support
-                        for every stage.</h2></div>
+                    <div><p className="profile-section-label">{t.doctor.profileFocusLabel}</p><h2 id="specialty-title">{t.doctor.profileFocusHeading}</h2></div>
                     <div className="profile-copy prose"><ReactMarkdown>{profile.specializationSummary}</ReactMarkdown><Link href="/services"
-                                                                                              className="profile-text-link">View
-                        all services <ArrowIcon/></Link></div>
+                                                                                              className="profile-text-link">{t.doctor.viewServices} <ArrowIcon/></Link></div>
                 </section>
                 <section className="profile-section profile-details profile-reveal" data-profile-reveal
                          aria-labelledby="details-title">
-                    <div><p className="profile-section-label">At a glance</p><h2 id="details-title">A few helpful
-                        details.</h2></div>
+                    <div><p className="profile-section-label">{t.doctor.profileDetailsLabel}</p><h2 id="details-title">{t.doctor.profileDetailsHeading}</h2></div>
                     <div className="profile-detail-list">
                         <div><span
-                            className="profile-detail-label">Current position</span><strong>{[profile.role, profile.affiliation].filter(Boolean).join(', ')}</strong>
+                            className="profile-detail-label">{t.doctor.currentPosition}</span><strong>{[profile.role, profile.affiliation].filter(Boolean).join(', ')}</strong>
                         </div>
-                        <div><span className="profile-detail-label">Languages spoken</span>
+                        <div><span className="profile-detail-label">{t.doctor.languagesSpoken}</span>
                             <div className="profile-tags">{profile.languages.map(language => <span
                                 key={language}>{language}</span>)}</div>
                         </div>
                     </div>
                 </section>
                 <section className="profile-cta profile-reveal" data-profile-reveal aria-labelledby="cta-title">
-                    <div><p className="profile-section-label">Your next step</p><h2 id="cta-title">Book an
-                        appointment.</h2></div>
+                    <div><p className="profile-section-label">{t.doctor.nextStep}</p><h2 id="cta-title">{t.doctor.bookAppointment}</h2></div>
                     <div className="profile-cta-actions"><a href={`tel:${phone}`}
-                                                               className="profile-button profile-button-light">Book an
-                        appointment <ArrowIcon/></a><a href={`tel:${phone}`}
+                                                               className="profile-button profile-button-light">{t.doctor.bookAppointment} <ArrowIcon/></a><a href={`tel:${phone}`}
                                                           className="profile-phone"><PhoneIcon/> {phone}</a></div>
                 </section>
             </div>

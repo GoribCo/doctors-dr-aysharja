@@ -1,8 +1,11 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
-import type { ContentLanguage } from '@/lib/doctorContent'
-import config from "@/config";
+import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import type {
+  ContentLanguage,
+  DoctorContent,
+  DoctorContentByLanguage,
+} from '@/lib/doctorContent'
 
 const STORAGE_KEY = 'rxprofile_content_lang'
 const DEFAULT_CONTENT_LANG: ContentLanguage = 'bn'
@@ -11,43 +14,40 @@ interface ContentLanguageContextValue {
   lang: ContentLanguage
   availableLangs: ContentLanguage[]
   setLang: (lang: ContentLanguage) => void
+  content: DoctorContent | null
 }
 
 const ContentLanguageContext = createContext<ContentLanguageContextValue>({
   lang: DEFAULT_CONTENT_LANG,
   availableLangs: [DEFAULT_CONTENT_LANG],
   setLang: () => {},
+  content: null,
 })
 
 export function useContentLanguage() {
   return useContext(ContentLanguageContext)
 }
 
-export default function ContentLanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<ContentLanguage>(DEFAULT_CONTENT_LANG)
-  const [availableLangs, setAvailableLangs] = useState<ContentLanguage[]>([DEFAULT_CONTENT_LANG])
+export default function ContentLanguageProvider({
+  children,
+  contentByLanguage,
+}: {
+  children: React.ReactNode
+  contentByLanguage: DoctorContentByLanguage
+}) {
+  const availableLangs = useMemo(
+    () => Object.keys(contentByLanguage) as ContentLanguage[],
+    [contentByLanguage],
+  )
+  const defaultLang = availableLangs.includes(DEFAULT_CONTENT_LANG)
+    ? DEFAULT_CONTENT_LANG
+    : availableLangs[0] ?? DEFAULT_CONTENT_LANG
+  const [lang, setLangState] = useState<ContentLanguage>(defaultLang)
 
   useEffect(() => {
-    // Fetch available languages from API
-    fetch(`${config.url.basePath}/api/available-languages`)
-      .then(res => res.json())
-      .then(data => {
-        const available = data.languages as ContentLanguage[]
-        setAvailableLangs(available)
-        
-        // Check if stored language is still available
-        const stored = localStorage.getItem(STORAGE_KEY) as ContentLanguage | null
-        if (stored && available.includes(stored)) {
-          setLangState(stored)
-        } else {
-          setLangState(available[0] ?? DEFAULT_CONTENT_LANG)
-        }
-      })
-      .catch(err => {
-        console.error('Failed to fetch available languages:', err)
-        setAvailableLangs([DEFAULT_CONTENT_LANG])
-      })
-  }, [])
+    const stored = localStorage.getItem(STORAGE_KEY) as ContentLanguage | null
+    if (stored && availableLangs.includes(stored)) setLangState(stored)
+  }, [availableLangs])
 
   function setLang(next: ContentLanguage) {
     if (availableLangs.includes(next)) {
@@ -57,7 +57,12 @@ export default function ContentLanguageProvider({ children }: { children: React.
   }
 
   return (
-    <ContentLanguageContext.Provider value={{ lang, availableLangs, setLang }}>
+    <ContentLanguageContext.Provider value={{
+      lang,
+      availableLangs,
+      setLang,
+      content: contentByLanguage[lang] ?? contentByLanguage[defaultLang] ?? null,
+    }}>
       {children}
     </ContentLanguageContext.Provider>
   )

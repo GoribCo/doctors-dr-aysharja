@@ -6,9 +6,10 @@ import { useContentLanguage } from '@/components/ContentLanguageProvider'
 import { useDoctorContent } from '@/hooks/useDoctorContent'
 import { getAppointmentAction } from '@/lib/appointment'
 import type { Chamber } from '@/lib/chamber'
-import config from '@/config'
+import { useUiLang } from '@/components/UiLanguageProvider'
 
 type AppointmentContent = {
+  title?: string
   description?: string
   content: string
   isVisible: boolean
@@ -25,13 +26,14 @@ function PhoneIcon() {
 
 export default function AppointmentClient() {
   const { lang } = useContentLanguage()
+  const { t } = useUiLang()
   const { content, isLoading, error } = useDoctorContent(lang)
   const appointment = content?.appointment as AppointmentContent | null
-  const action = getAppointmentAction(config.doctor.appointment)
+  const action = getAppointmentAction(content?.site.appointment ?? {})
   const chamber = appointment?.chambers?.[0]
 
   if (isLoading) {
-    return <div className="px-5 pb-28 pt-10 text-center text-sm text-slate-500 dark:text-slate-400">Loading...</div>
+    return <div className="px-5 pb-28 pt-10 text-center text-sm text-slate-500 dark:text-slate-400">{t.common.loading}</div>
   }
 
   if (error || !appointment || !appointment.isVisible) {
@@ -41,13 +43,13 @@ export default function AppointmentClient() {
   return (
     <div className="px-5 pb-28 pt-6 sm:px-8 lg:pb-10 lg:pt-10">
       <div className="mx-auto max-w-4xl">
-        <ContentPageTitle eyebrow="appointment" heading="Appointment" intro={appointment.description} />
+        <ContentPageTitle eyebrow={t.doctor.bookAppointment} heading={appointment.title ?? t.doctor.bookAppointment} intro={appointment.description} />
 
         {action.phone && (
           <section className="rounded-2xl bg-teal-800 p-6 text-white shadow-sm dark:bg-teal-950 sm:p-8" aria-labelledby="call-heading">
-            <p className="text-sm font-medium text-teal-100">Phone booking</p>
-            <h2 id="call-heading" className="mt-2 text-2xl font-semibold leading-tight">Appointments are booked by phone</h2>
-            <p className="mt-4 text-sm leading-6 text-teal-100/80">Call the clinic directly to find a convenient consultation time.</p>
+            <p className="text-sm font-medium text-teal-100">{t.doctor.phoneBooking}</p>
+            <h2 id="call-heading" className="mt-2 text-2xl font-semibold leading-tight">{t.doctor.phoneBookingHeading}</h2>
+            <p className="mt-4 text-sm leading-6 text-teal-100/80">{t.doctor.phoneBookingText}</p>
             <a href={action.primaryHref ?? `tel:${action.phone}`} className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-white px-5 py-4 text-base font-semibold text-teal-800 transition hover:bg-teal-50 sm:w-auto">
               <PhoneIcon /> Call {action.phone}
             </a>
@@ -57,12 +59,12 @@ export default function AppointmentClient() {
         {chamber && (
           <section className="mt-6 grid gap-5 md:grid-cols-[1fr_1.1fr]" aria-labelledby="chamber-heading">
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800 sm:p-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-teal-700 dark:text-teal-300">Visit details</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-teal-700 dark:text-teal-300">{t.doctor.visitDetails}</p>
               <h2 id="chamber-heading" className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">{chamber.name}</h2>
               <dl className="mt-6 space-y-4 text-sm">
-                <div><dt className="font-semibold text-slate-900 dark:text-white">Address</dt><dd className="mt-1 leading-6 text-slate-600 dark:text-slate-300">{chamber.address}</dd></div>
-                <div><dt className="font-semibold text-slate-900 dark:text-white">Consultation days</dt><dd className="mt-1 text-slate-600 dark:text-slate-300">{chamber.visitingDays}</dd></div>
-                <div><dt className="font-semibold text-slate-900 dark:text-white">Hours</dt><dd className="mt-1 text-slate-600 dark:text-slate-300">{chamber.visitingHours}</dd></div>
+                <div><dt className="font-semibold text-slate-900 dark:text-white">{t.doctor.address}</dt><dd className="mt-1 leading-6 text-slate-600 dark:text-slate-300">{chamber.address}</dd></div>
+                <div><dt className="font-semibold text-slate-900 dark:text-white">{t.doctor.consultationDays}</dt><dd className="mt-1 text-slate-600 dark:text-slate-300">{chamber.visitingDays}</dd></div>
+                <div><dt className="font-semibold text-slate-900 dark:text-white">{t.doctor.hours}</dt><dd className="mt-1 text-slate-600 dark:text-slate-300">{chamber.visitingHours}</dd></div>
               </dl>
             </div>
             <div className="min-h-64 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-900">
@@ -76,14 +78,14 @@ export default function AppointmentClient() {
         )}
 
         <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800 sm:p-8" aria-labelledby="prepare-heading">
-          <h2 id="prepare-heading" className="text-xl font-semibold text-slate-900 dark:text-white">Before your visit</h2>
+          <h2 id="prepare-heading" className="text-xl font-semibold text-slate-900 dark:text-white">{t.doctor.beforeVisit}</h2>
           <div className="prose mt-4 max-w-none dark:prose-invert"><ReactMarkdown>{appointment.content}</ReactMarkdown></div>
         </section>
 
         {action.phone && (
           <section className="mt-6 flex flex-col items-start justify-between gap-5 rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60 sm:flex-row sm:items-center sm:p-7">
-            <div><p className="text-sm font-semibold text-slate-900 dark:text-white">Ready to schedule?</p><p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Call to book your appointment.</p></div>
-            <a href={action.primaryHref ?? `tel:${action.phone}`} className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-teal-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-teal-800 dark:bg-teal-600 dark:hover:bg-teal-500 sm:w-auto"><PhoneIcon /> Book by phone</a>
+            <div><p className="text-sm font-semibold text-slate-900 dark:text-white">{t.doctor.readyToSchedule}</p><p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{t.doctor.readyToScheduleText}</p></div>
+            <a href={action.primaryHref ?? `tel:${action.phone}`} className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-teal-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-teal-800 dark:bg-teal-600 dark:hover:bg-teal-500 sm:w-auto"><PhoneIcon /> {t.doctor.bookByPhone}</a>
           </section>
         )}
       </div>

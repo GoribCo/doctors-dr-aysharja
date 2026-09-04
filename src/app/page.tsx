@@ -2,15 +2,16 @@ import { getAllDoctorContent } from '@/lib/doctorContent'
 import HomeClient from './HomeClient'
 import type { Metadata } from 'next'
 import config from '@/config'
-import { getDoctorName } from '@/lib/doctorContent'
+import { getDoctorName, getSiteSettings } from '@/lib/doctorContent'
 
 export const dynamic = 'force-static'
 
 export async function generateMetadata(): Promise<Metadata> {
   const doctorName = getDoctorName('en');
+  const site = getSiteSettings()
   return {
-  title: config.seo.defaultTitle,
-  description: config.seo.defaultDescription,
+  title: `${doctorName} - Professional Profile`,
+  description: site.seo?.defaultDescription,
   }
 }
 
@@ -20,4 +21,3 @@ export default function HomePage() {
 
   return <HomeClient doctorContent={doctorContent} config={config} />
 }
-

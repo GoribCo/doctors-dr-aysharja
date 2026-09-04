@@ -7,11 +7,11 @@ import { useContentLanguage } from '@/components/ContentLanguageProvider'
 import { useSpeciality } from '@/components/SpecialityProvider'
 import ThemeToggle from '@/components/ThemeToggle'
 import { useDoctorContent } from '@/hooks/useDoctorContent'
-import type { DoctorSection } from '@/lib/doctorContent'
+import type { DoctorContent, DoctorSection } from '@/lib/doctorContent'
 import ContentPageTitle from "@/components/ContentPageTitle";
 
 interface ContentPageProps {
-  sectionKey: string
+  sectionKey: Exclude<keyof DoctorContent, 'servicesList' | 'site' | 'ui'>
   title: string
   description?: string
 }
@@ -22,7 +22,7 @@ export default function ContentPage({ sectionKey, title, description }: ContentP
   const { speciality, theme } = useSpeciality()
   const { content: data, isLoading, error } = useDoctorContent(contentLang)
 
-  const section: DoctorSection | null = data?.[sectionKey] || null
+  const section: DoctorSection | null = data?.[sectionKey] ?? null
   const pageDescription = description ?? section?.description
 
   if (isLoading) {
@@ -44,9 +44,9 @@ export default function ContentPage({ sectionKey, title, description }: ContentP
     return (
       <div className="px-6 pb-28 lg:pb-10 pt-6 max-w-3xl mx-auto">
         <div className="text-center py-12">
-          <p className="text-gray-600 dark:text-gray-400 mb-4">This section is not yet available.</p>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">{t.common.unavailable}</p>
           <Link href="/" className="text-blue-600 dark:text-blue-400 hover:underline">
-            Back to home
+            {t.common.home}
           </Link>
         </div>
       </div>

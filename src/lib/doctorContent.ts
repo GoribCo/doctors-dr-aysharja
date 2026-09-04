@@ -24,6 +24,15 @@ export interface DoctorService {
   isVisible: boolean;
 }
 
+export interface SiteSettings {
+  profileImage?: string
+  appointment?: { phone?: string; bookingUrl?: string }
+  contact?: { phone?: string; email?: string; whatsapp?: string; latitude?: number | null; longitude?: number | null }
+  branding?: { shortName?: string; version?: string }
+  seo?: { defaultDescription?: string }
+  theme?: { colorLight?: string; colorDark?: string; primary?: string }
+}
+
 // Default language for content
 const DEFAULT_CONTENT_LANG: ContentLanguage = 'bn'
 
@@ -32,6 +41,16 @@ const contentCache = new Map<string, any>()
 
 function getContentDir(lang: ContentLanguage = DEFAULT_CONTENT_LANG): string {
   return path.join(process.cwd(), 'content', lang)
+}
+
+export function getSiteSettings(): SiteSettings {
+  const cacheKey = 'site_settings'
+  if (contentCache.has(cacheKey)) return contentCache.get(cacheKey)
+  const filePath = path.join(process.cwd(), 'content', 'site.md')
+  if (!fs.existsSync(filePath)) return {}
+  const { data } = matter(fs.readFileSync(filePath, 'utf-8'))
+  contentCache.set(cacheKey, data as SiteSettings)
+  return data as SiteSettings
 }
 
 export function getDoctorName(lang: ContentLanguage = DEFAULT_CONTENT_LANG): string {
@@ -155,6 +174,7 @@ export function getServicesList(lang: ContentLanguage = DEFAULT_CONTENT_LANG): D
 
 export function getAllDoctorContent(lang: ContentLanguage = DEFAULT_CONTENT_LANG) {
   return {
+    site: getSiteSettings(),
     profile: getSectionContent('profile.md', lang),
     about: getSectionContent('about.md', lang),
     speciality: getSectionContent('speciality.md', lang),
@@ -175,6 +195,16 @@ export function getAllDoctorContent(lang: ContentLanguage = DEFAULT_CONTENT_LANG
     faq: getSectionContent('faq.md', lang),
     contact: getSectionContent('contact.md', lang),
   }
+}
+
+export type DoctorContent = ReturnType<typeof getAllDoctorContent>
+export type DoctorContentByLanguage = Partial<Record<ContentLanguage, DoctorContent>>
+
+/** Load every configured translation during the static build. */
+export function getDoctorContentByLanguage(): DoctorContentByLanguage {
+  return Object.fromEntries(
+    getAvailableContentLanguages().map(lang => [lang, getAllDoctorContent(lang)]),
+  ) as DoctorContentByLanguage
 }
 
 // Helper to check if a language's content directory exists
