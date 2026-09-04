@@ -124,6 +124,13 @@ export interface Translations {
     home: string
     loading: string
     streak: string
+    unavailable: string
+    changeLanguage: string
+  }
+  doctor: {
+    profileEyebrow: string; profileBioLabel: string; profileBioHeading: string; profileFocusLabel: string; profileFocusHeading: string; viewServices: string; profileDetailsLabel: string; profileDetailsHeading: string; currentPosition: string; languagesSpoken: string; nextStep: string; bookAppointment: string
+    servicesEyebrow: string; availableServices: string; consultationCtaHeading: string; consultationCtaText: string
+    phoneBooking: string; phoneBookingHeading: string; phoneBookingText: string; visitDetails: string; address: string; consultationDays: string; hours: string; beforeVisit: string; readyToSchedule: string; readyToScheduleText: string; bookByPhone: string
   }
   vocabulary: {
     title: string
@@ -252,7 +259,8 @@ const en: Translations = {
     resetConfirm: 'Are you sure? This will delete all your progress and streak.',
     resetDone: 'Progress reset.',
   },
-  common: { back: 'Back', home: 'Home', loading: 'Loading...', streak: 'day streak' },
+  common: { back: 'Back', home: 'Home', loading: 'Loading...', streak: 'day streak', unavailable: 'This section is not yet available.', changeLanguage: 'Change language' },
+  doctor: { profileEyebrow: 'A closer introduction', profileBioLabel: 'In her own words', profileBioHeading: 'Care begins with listening.', profileFocusLabel: 'Areas of focus', profileFocusHeading: 'Focused support for every stage.', viewServices: 'View all services', profileDetailsLabel: 'At a glance', profileDetailsHeading: 'A few helpful details.', currentPosition: 'Current position', languagesSpoken: 'Languages spoken', nextStep: 'Your next step', bookAppointment: 'Book an appointment', servicesEyebrow: 'Services', availableServices: 'Available services', consultationCtaHeading: 'Ready to book a consultation?', consultationCtaText: 'Call the clinic to arrange your appointment.', phoneBooking: 'Phone booking', phoneBookingHeading: 'Appointments are booked by phone', phoneBookingText: 'Call the clinic directly to find a convenient consultation time.', visitDetails: 'Visit details', address: 'Address', consultationDays: 'Consultation days', hours: 'Hours', beforeVisit: 'Before your visit', readyToSchedule: 'Ready to schedule?', readyToScheduleText: 'Call to book your appointment.', bookByPhone: 'Book by phone' },
   vocabulary: {
     title: 'Vocabulary',
     allPairs: 'All Courses',
@@ -380,7 +388,8 @@ const bn: Translations = {
     resetConfirm: 'আপনি কি নিশ্চিত? এটি আপনার সব অগ্রগতি ও স্ট্রিক মুছে দেবে।',
     resetDone: 'অগ্রগতি রিসেট হয়েছে।',
   },
-  common: { back: 'ফিরে যান', home: 'হোম', loading: 'লোড হচ্ছে...', streak: 'দিনের স্ট্রিক' },
+  common: { back: 'ফিরে যান', home: 'হোম', loading: 'লোড হচ্ছে...', streak: 'দিনের স্ট্রিক', unavailable: 'এই বিভাগটি এখনো উপলভ্য নয়।', changeLanguage: 'ভাষা পরিবর্তন করুন' },
+  doctor: { profileEyebrow: 'পরিচিতি', profileBioLabel: 'ডাক্তারের কথায়', profileBioHeading: 'যত্ন শুরু হয় মনোযোগ দিয়ে শোনা থেকে।', profileFocusLabel: 'বিশেষ যত্নের ক্ষেত্র', profileFocusHeading: 'প্রতিটি ধাপে সহায়তা।', viewServices: 'সব সেবা দেখুন', profileDetailsLabel: 'এক নজরে', profileDetailsHeading: 'কিছু প্রয়োজনীয় তথ্য।', currentPosition: 'বর্তমান পদ', languagesSpoken: 'ভাষাসমূহ', nextStep: 'পরবর্তী ধাপ', bookAppointment: 'অ্যাপয়েন্টমেন্ট নিন', servicesEyebrow: 'সেবাসমূহ', availableServices: 'উপলভ্য সেবাসমূহ', consultationCtaHeading: 'অ্যাপয়েন্টমেন্ট নিতে চান?', consultationCtaText: 'অ্যাপয়েন্টমেন্টের জন্য ক্লিনিকে ফোন করুন।', phoneBooking: 'ফোনে বুকিং', phoneBookingHeading: 'ফোনে অ্যাপয়েন্টমেন্ট নেওয়া হয়', phoneBookingText: 'সুবিধাজনক সময় জানতে সরাসরি ক্লিনিকে ফোন করুন।', visitDetails: 'ভিজিটের তথ্য', address: 'ঠিকানা', consultationDays: 'পরামর্শের দিন', hours: 'সময়', beforeVisit: 'ভিজিটের আগে', readyToSchedule: 'সময় নির্ধারণ করতে চান?', readyToScheduleText: 'অ্যাপয়েন্টমেন্টের জন্য ফোন করুন।', bookByPhone: 'ফোনে বুক করুন' },
   vocabulary: {
     title: 'শব্দভাণ্ডার',
     allPairs: 'সব কোর্স',
@@ -508,7 +517,8 @@ const hi: Translations = {
     resetConfirm: 'क्या आप सुनिश्चित हैं? यह आपकी सारी प्रगति और स्ट्रीक हटा देगा।',
     resetDone: 'प्रगति रीसेट हो गई।',
   },
-  common: { back: 'वापस', home: 'होम', loading: 'लोड हो रहा है...', streak: 'दिन की स्ट्रीक' },
+  common: { back: 'वापस', home: 'होम', loading: 'लोड हो रहा है...', streak: 'दिन की स्ट्रीक', unavailable: 'यह अनुभाग अभी उपलब्ध नहीं है।', changeLanguage: 'भाषा बदलें' },
+  doctor: { profileEyebrow: 'परिचय', profileBioLabel: 'डॉक्टर के शब्दों में', profileBioHeading: 'देखभाल सुनने से शुरू होती है।', profileFocusLabel: 'विशेष ध्यान के क्षेत्र', profileFocusHeading: 'हर चरण में सहयोग।', viewServices: 'सभी सेवाएँ देखें', profileDetailsLabel: 'एक नज़र में', profileDetailsHeading: 'कुछ उपयोगी जानकारी।', currentPosition: 'वर्तमान पद', languagesSpoken: 'बोली जाने वाली भाषाएँ', nextStep: 'अगला कदम', bookAppointment: 'अपॉइंटमेंट लें', servicesEyebrow: 'सेवाएँ', availableServices: 'उपलब्ध सेवाएँ', consultationCtaHeading: 'परामर्श बुक करना चाहते हैं?', consultationCtaText: 'अपॉइंटमेंट के लिए क्लिनिक को कॉल करें।', phoneBooking: 'फोन बुकिंग', phoneBookingHeading: 'अपॉइंटमेंट फोन से बुक होते हैं', phoneBookingText: 'सुविधाजनक समय के लिए क्लिनिक को कॉल करें।', visitDetails: 'विज़िट विवरण', address: 'पता', consultationDays: 'परामर्श के दिन', hours: 'समय', beforeVisit: 'विज़िट से पहले', readyToSchedule: 'समय तय करना चाहते हैं?', readyToScheduleText: 'अपॉइंटमेंट के लिए कॉल करें।', bookByPhone: 'फोन से बुक करें' },
   vocabulary: {
     title: 'शब्दावली',
     allPairs: 'सभी कोर्स',

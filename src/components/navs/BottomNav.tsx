@@ -222,7 +222,7 @@ export default function BottomNav({ isAuthenticated = true }: { isAuthenticated?
 
         {/* Footer */}
         <div className="px-5 py-4 border-t border-gray-100 dark:border-gray-800">
-          <p className="text-xs text-gray-400 dark:text-gray-600">{config.app.name} v{config.app.version}</p>
+          <p className="text-xs text-gray-400 dark:text-gray-600">v{config.app.version}</p>
         </div>
       </nav>
     </>

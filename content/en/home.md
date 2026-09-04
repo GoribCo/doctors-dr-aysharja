@@ -1,7 +1,6 @@
 ---
 title: "Home"
 doctorName: "{{doctorName}}"
-phone: "+8801712345678"
 brandSubtitle: "Medical portfolio"
 heroEyebrow: "Compassionate care, thoughtfully delivered"
 heroTitle: "A calmer, more confident path to better health."

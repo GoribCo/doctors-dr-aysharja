@@ -8,12 +8,6 @@ import {useDoctorContent} from '@/hooks/useDoctorContent'
 interface Props {
     doctorContent: any
     config: {
-        doctor: {
-            name: string;
-            appointment: {
-                phone?: string | null
-            }
-        }
         url: {
             site: string;
             basePath: string
@@ -51,11 +45,12 @@ export default function HomeClient({doctorContent: initialContent, config}: Prop
     const {lang} = useContentLanguage()
     const {content: fetchedContent} = useDoctorContent(lang)
     const home = (fetchedContent?.home ?? initialContent.home ?? {}) as Record<string, unknown>
-    const phone = text(home, 'phone', config.doctor.appointment.phone || '')
+    const phone = text(home, 'phone', fetchedContent?.site.appointment?.phone || '')
     const phoneHref = phone ? `tel:${phone}` : '#'
-    const doctorName = text(home, 'doctorName', config.doctor.name)
+    const doctorName = text(home, 'doctorName')
     const services = list(home, 'services')
     const credentials = list(home, 'credentialItems')
+    const profileImage = fetchedContent?.site.profileImage
 
     useEffect(() => {
         const frame = requestAnimationFrame(() => setVisible(true))
@@ -78,7 +73,9 @@ export default function HomeClient({doctorContent: initialContent, config}: Prop
                         aria-hidden="true">&#183;</span> {text(home, 'consultationHours')}</p>
                 </div>
                 <div className="hero-portrait reveal reveal-delay">
-                    <div className="portrait-frame"><img src={`${config.url.basePath}/assets/images/profile-images/image1.jpg`} alt={doctorName}/></div>
+                    <div className="portrait-frame">
+                      {profileImage && <img src={`${config.url.basePath}${profileImage}`} alt={doctorName}/>} 
+                    </div>
                     <div className="portrait-caption"><span className="status-dot"/> {text(home, 'availability')}
                         <small>{text(home, 'availabilityNote')}</small>
                     </div>

@@ -9,7 +9,7 @@ import BottomNav from '@/components/navs/BottomNav'
 import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar'
 import StickyAppointmentCTA from '@/components/StickyAppointmentCTA'
 import SiteHeader from '@/components/layouts/SiteHeader'
-import { getAllDoctorContent, getDoctorContentByLanguage } from '@/lib/doctorContent'
+import { getAllDoctorContent, getDoctorContentByLanguage, getSiteSettings } from '@/lib/doctorContent'
 import config from '@/config'
 import { getDoctorName } from '@/lib/doctorContent'
 
@@ -21,6 +21,7 @@ const inter = Inter({
 
 export async function generateMetadata(): Promise<Metadata> {
   const doctorName = getDoctorName('en');
+  const site = getSiteSettings()
   return {
     metadataBase: new URL(config.url.site),
     applicationName: doctorName,
@@ -35,13 +36,13 @@ export async function generateMetadata(): Promise<Metadata> {
       default: `${doctorName} - Professional Profile`,
       template: `%s | ${doctorName}`,
     },
-    description: `Professional profile, medical services, and appointment booking for ${doctorName}.`,
-    keywords: ['doctor', 'medical', doctorName, 'TODO'],
+    description: site.seo?.defaultDescription,
+    keywords: ['doctor', 'medical', doctorName],
     authors: [{ name: doctorName }],
     creator: doctorName,
     openGraph: {
       title: `${doctorName} - Professional Profile`,
-      description: `Professional profile, medical services, and appointment booking for ${doctorName}.`,
+      description: site.seo?.defaultDescription,
       url: config.url.site,
       siteName: doctorName,
       locale: 'en_US',
@@ -50,7 +51,7 @@ export async function generateMetadata(): Promise<Metadata> {
     twitter: {
       card: 'summary',
       title: `${doctorName} - Professional Profile`,
-      description: `Professional profile, medical services, and appointment booking for ${doctorName}.`,
+      description: site.seo?.defaultDescription,
     },
     alternates: {
       canonical: config.url.site,
@@ -63,13 +64,16 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: config.theme.colorLight },
-    { media: '(prefers-color-scheme: dark)', color: config.theme.colorDark },
-  ],
+export function generateViewport(): Viewport {
+  const theme = getSiteSettings().theme
+  return {
+    width: 'device-width',
+    initialScale: 1,
+    themeColor: [
+      { media: '(prefers-color-scheme: light)', color: theme?.colorLight ?? '#f9fafb' },
+      { media: '(prefers-color-scheme: dark)', color: theme?.colorDark ?? '#0f172a' },
+    ],
+  }
 }
 
 export default function RootLayout({
@@ -103,7 +107,6 @@ export default function RootLayout({
                     <SiteHeader
                         initialHome={getAllDoctorContent('bn').home as Record<string, unknown> | null}
                         doctorName={getDoctorName('bn')}
-                        phone={config.doctor.appointment.phone}
                     />
                     {children}
                   </main>

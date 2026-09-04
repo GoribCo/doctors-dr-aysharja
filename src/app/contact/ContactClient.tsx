@@ -7,7 +7,6 @@ import { useContentLanguage } from '@/components/ContentLanguageProvider'
 import { useDoctorContent } from '@/hooks/useDoctorContent'
 import { getAppointmentAction, normalizePhone } from '@/lib/appointment'
 import type { Chamber } from '@/lib/chamber'
-import config from '@/config'
 
 type ContactContent = {
   description?: string
@@ -33,10 +32,12 @@ export default function ContactClient() {
   const { content, isLoading, error } = useDoctorContent(lang)
   const contact = content?.contact as ContactContent | null
   const chamber = contact?.chambers?.[0]
-  const phone = normalizePhone(config.doctor.appointment.phone) ?? normalizePhone(config.doctor.contact.phone)
-  const email = configuredValue(config.doctor.contact.email)
-  const whatsapp = normalizePhone(config.doctor.contact.whatsapp)
-  const { latitude, longitude } = config.doctor.contact.mapCoordinates
+  const site = content?.site
+  const phone = normalizePhone(site?.appointment?.phone) ?? normalizePhone(site?.contact?.phone)
+  const email = configuredValue(site?.contact?.email)
+  const whatsapp = normalizePhone(site?.contact?.whatsapp)
+  const latitude = site?.contact?.latitude ?? null
+  const longitude = site?.contact?.longitude ?? null
   const mapConfigured = latitude !== null && longitude !== null
   const appointment = getAppointmentAction({ phone })
 
