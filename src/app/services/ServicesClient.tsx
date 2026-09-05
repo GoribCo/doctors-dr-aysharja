@@ -6,6 +6,7 @@ import { useDoctorContent } from '@/hooks/useDoctorContent'
 import { getAppointmentAction } from '@/lib/appointment'
 import type { DoctorService } from '@/lib/doctorContent'
 import { useUiLang } from '@/components/UiLanguageProvider'
+import ReactMarkdown from 'react-markdown'
 
 function ServiceIcon({ name }: { name?: string }) {
   if (name === 'Heart') {
@@ -80,6 +81,11 @@ export default function ServicesClient() {
               </li>
             ))}
           </ul>
+          {services.length === 0 && section.content && (
+            <div className="prose mt-2 max-w-none text-slate-600 dark:prose-invert dark:text-slate-300">
+              <ReactMarkdown>{section.content}</ReactMarkdown>
+            </div>
+          )}
         </section>
         {appointment.phone && (
           <section className="mt-6 flex flex-col items-start justify-between gap-5 rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60 sm:flex-row sm:items-center sm:p-7">
