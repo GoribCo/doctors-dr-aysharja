@@ -3,14 +3,14 @@
 # Keep doctor biography, name, qualifications, and translated text in content/en/ and content/bn/.
 profileImage: "/assets/images/profile-images/image2.jpg"
 appointment:
-  phone: ""
+  phone: "+8801719100070"
   bookingUrl: ""
 contact:
-  phone: ""
-  email: ""
-  whatsapp: ""
-  latitude: null
-  longitude: null
+  phone: "+8801719100070"
+  email: "aysharjpodder@gmail.com"
+  whatsapp: "8801719100070"
+  latitude: 22.777628
+  longitude: 89.702113
 branding:
   shortName: "Rx Profile"
   version: "0.1.0"

@@ -1,6 +1,6 @@
 ---
-title: FAQ
-description: Frequently Asked Questions
+title: সাধারণ জিজ্ঞাসা
+description: প্রায়শই জিজ্ঞাসিত প্রশ্ন ও উত্তর
 ---
 
 > নমুনা কনটেন্ট — প্রকাশের আগে নিজের তথ্য দিয়ে প্রতিস্থাপন করুন।

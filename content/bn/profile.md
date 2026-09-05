@@ -1,15 +1,15 @@
 ---
 title: প্রোফাইল
 description: '{{doctorName}}-এর পরিচিতি'
-salutation: Dr.
+salutation: ডা.
 doctorName: ডা. ঐশর্য্য লক্ষ্মী পোদ্দার
 designation: অর্থোপেডিক চিকিৎসক
 affiliation: ''
-role: Consultant
-yearsOfExperience: '7'
+role: কনসালট্যান্ট
+yearsOfExperience: ৭
 languages:
-  - Bangla
-  - English
+  - বাংলা
+  - ইংরেজি
 bio: >-
   {{doctorName}} হাড়, জয়েন্ট, পেশি ও চলাফেরার সমস্যায় অর্থোপেডিক চিকিৎসা
   পরামর্শ দেন। রোগীর উপসর্গ ও দৈনন্দিন অসুবিধা বুঝে চিকিৎসার বিকল্প এবং পরবর্তী
