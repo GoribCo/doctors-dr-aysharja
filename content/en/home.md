@@ -19,7 +19,7 @@ introText: >-
   {{doctorName}} provides orthopedic consultations for bone, joint, and
   movement-related concerns. Each visit focuses on understanding your symptoms,
   explaining care options, and planning the next steps.
-learnMore: Learn more about Dr. Aysharja
+learnMore: 'Learn more about {{doctorShortName}}'
 servicesLabel: Areas of care
 servicesTitle: 'Support for your bones, joints, and movement.'
 viewServices: View all services

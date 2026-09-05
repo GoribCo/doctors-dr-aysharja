@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import { getFullName, getNameTemplateVars, resolveContentTemplates, type DoctorNameParts } from './doctorName'
 import type { Chamber } from './chamber'
 import { parseChambers } from './chamber'
 
@@ -54,37 +55,19 @@ export function getSiteSettings(): SiteSettings {
   return data as SiteSettings
 }
 
-export function getDoctorName(lang: ContentLanguage = DEFAULT_CONTENT_LANG): string {
-  const cacheKey = `${lang}:doctor_name`
-  if (process.env.NODE_ENV === 'production' && contentCache.has(cacheKey)) {
-    return contentCache.get(cacheKey)
-  }
-
+export function getDoctorIdentity(lang: ContentLanguage = DEFAULT_CONTENT_LANG): DoctorNameParts {
   const profilePath = path.join(getContentDir(lang), 'profile.md')
-  let name = ''
-  if (fs.existsSync(profilePath)) {
-    const raw = fs.readFileSync(profilePath, 'utf-8')
-    const { data } = matter(raw)
-    if (data.doctorName) name = data.doctorName as string
+  const data = fs.existsSync(profilePath) ? matter(fs.readFileSync(profilePath, 'utf-8')).data : {}
+  const field = (key: string) => typeof data[key] === 'string' ? data[key].trim() : ''
+  const name = { salutation: field('salutation'), firstName: field('firstName'), middleName: field('middleName'), lastName: field('lastName') }
+  if (!name.firstName && !name.middleName && !name.lastName) {
+    return lang === 'en' ? { ...name, firstName: 'Doctor' } : getDoctorIdentity('en')
   }
-  
-  if (!name && lang !== 'en') {
-    name = getDoctorName('en')
-  }
-  if (!name) name = 'Doctor'
-  
-  contentCache.set(cacheKey, name)
   return name
 }
 
-function replaceTemplateVars(text: string, vars: Record<string, string>): string {
-  if (!text || typeof text !== 'string') return text;
-  let result = text;
-  for (const [key, value] of Object.entries(vars)) {
-    const regex = new RegExp(`{{${key}}}`, 'g');
-    result = result.replace(regex, value);
-  }
-  return result;
+export function getDoctorName(lang: ContentLanguage = DEFAULT_CONTENT_LANG): string {
+  return getFullName(getDoctorIdentity(lang))
 }
 
 export function getSectionContent(filename: string, lang: ContentLanguage = DEFAULT_CONTENT_LANG): DoctorSection | null {
@@ -100,28 +83,18 @@ export function getSectionContent(filename: string, lang: ContentLanguage = DEFA
 
   const raw = fs.readFileSync(filePath, 'utf-8')
   const { data, content } = matter(raw)
-  const parsedChambers = parseChambers(data.chambers ?? [])
+  const templateVars = getNameTemplateVars(getDoctorIdentity(lang))
+  const finalData = resolveContentTemplates(data, templateVars)
+  const finalContent = resolveContentTemplates(content, templateVars)
+  const parsedChambers = parseChambers(finalData.chambers ?? [])
 
   // If the content includes "TODO", we hide the section unless structured chamber data exists.
   const hasStructuredDetails = parsedChambers.length > 0
   const isVisible = !content.includes('TODO') || hasStructuredDetails
 
-  const doctorName = getDoctorName(lang)
-  const templateVars = { doctorName }
-  
-  const finalContent = filename === 'profile.md' ? content : replaceTemplateVars(content, templateVars)
-  const finalData = { ...data }
-  
-  if (filename !== 'profile.md') {
-    for (const key in finalData) {
-      if (typeof finalData[key] === 'string') {
-        finalData[key] = replaceTemplateVars(finalData[key] as string, templateVars)
-      }
-    }
-  }
-
   const result = {
     ...finalData,
+    ...(filename === 'profile.md' ? { doctorName: templateVars.doctorName, doctorShortName: templateVars.doctorShortName } : {}),
     title: (finalData.title as string) || '',
     description: (finalData.description as string) || '',
     content: finalContent,
@@ -153,15 +126,14 @@ export function getServicesList(lang: ContentLanguage = DEFAULT_CONTENT_LANG): D
     // If the content includes "TODO", we hide the service.
     const isVisible = !content.includes('TODO');
 
-    const doctorName = getDoctorName(lang)
-    const templateVars = { doctorName }
-    const finalContent = replaceTemplateVars(content, templateVars)
+    const templateVars = getNameTemplateVars(getDoctorIdentity(lang))
+    const finalContent = resolveContentTemplates(content, templateVars)
     
     return {
       id: filename.replace('.md', ''),
       order: typeof data.order === 'number' ? data.order : 100,
-      title: replaceTemplateVars((data.title as string) || '', templateVars),
-      shortDescription: replaceTemplateVars((data.shortDescription as string) || '', templateVars),
+      title: resolveContentTemplates((data.title as string) || '', templateVars),
+      shortDescription: resolveContentTemplates((data.shortDescription as string) || '', templateVars),
       icon: (data.icon as string) || undefined,
       image: (data.image as string) || undefined,
       content: finalContent,

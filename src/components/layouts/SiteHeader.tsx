@@ -30,9 +30,9 @@ export default function SiteHeader({ initialHome, doctorName }: Props) {
 
   return <header className="site-header">
     <div className="site-header-inner">
-      <Link href="/public" className="brand" aria-label={`${doctorName} home`}>
+      <Link href="/" className="brand" aria-label={`${name} ${t.nav.home}`}>
         <span className="brand-mark">ALP</span>
-        <span><strong>{doctorName}</strong>
+        <span><strong>{name}</strong>
                   <small>{text(home, 'brandSubtitle')}</small>
                   </span>
       </Link>

@@ -2,7 +2,9 @@
 title: Profile
 description: 'Profile of {{doctorName}}'
 salutation: Dr.
-doctorName: Aysharja Laxmi Podder
+firstName: Aysharja
+middleName: Laxmi
+lastName: Podder
 designation: Orthopaedic Doctor
 affiliation: '[Add hospital / chamber name]'
 role: Consultant

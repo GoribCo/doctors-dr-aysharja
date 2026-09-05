@@ -41,13 +41,13 @@ reviews:
     rating: 5
     date: "August 2026"
     service: "Prenatal Care"
-    review: "Dr. Podder was incredibly patient and explained everything clearly during my pregnancy checkups. Highly recommend her to anyone looking for a caring gynecologist."
+    review: "{{doctorSalutation}} {{lastName}} was incredibly patient and explained everything clearly during my pregnancy checkups. Highly recommend her to anyone looking for a caring gynecologist."
     status: "approved"
   - name: "Nusrat J."
     rating: 5
     date: "July 2026"
     service: "General Consultation"
-    review: "Very professional and attentive. The chamber was clean and the wait time was reasonable. Dr. Podder listened to all my concerns without rushing."
+    review: "Very professional and attentive. The chamber was clean and the wait time was reasonable. {{doctorSalutation}} {{lastName}} listened to all my concerns without rushing."
     status: "approved"
   - name: "R. Akter"
     rating: 4

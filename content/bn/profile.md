@@ -2,7 +2,9 @@
 title: প্রোফাইল
 description: '{{doctorName}}-এর পরিচিতি'
 salutation: ডা.
-doctorName: ডা. ঐশর্য্য লক্ষ্মী পোদ্দার
+firstName: ঐশর্য্য
+middleName: লক্ষ্মী
+lastName: পোদ্দার
 designation: অর্থোপেডিক চিকিৎসক
 affiliation: ''
 role: কনসালট্যান্ট
