@@ -1,19 +1,26 @@
 ---
-title: "Profile"
-description: "Profile of {{doctorName}}"
-salutation: "Dr."
-doctorName: "ডা. আয়শারজা লক্ষ্মী পোদ্দার"
-designation: "অর্থোপেডিক চিকিৎসক"
-affiliation: ""
-role: "Consultant"
-yearsOfExperience: "7"
+title: প্রোফাইল
+description: '{{doctorName}}-এর পরিচিতি'
+salutation: Dr.
+doctorName: ডা. ঐশর্য্য লক্ষ্মী পোদ্দার
+designation: অর্থোপেডিক চিকিৎসক
+affiliation: ''
+role: Consultant
+yearsOfExperience: '7'
 languages:
-  - "Bangla"
-  - "English"
-bio: "Dr. Aysharja Laxmi Podder offers thoughtful, patient-first care across women's health and obstetrics. She believes a good consultation begins with listening carefully and explaining each next step clearly. Her approach is warm, respectful, and shaped around helping patients feel informed and comfortable in their care."
-specializationSummary: "Support across prenatal care, women's health, and general consultations, with time set aside for the questions that matter to each patient."
+  - Bangla
+  - English
+bio: >-
+  {{doctorName}} হাড়, জয়েন্ট, পেশি ও চলাফেরার সমস্যায় অর্থোপেডিক চিকিৎসা
+  পরামর্শ দেন। রোগীর উপসর্গ ও দৈনন্দিন অসুবিধা বুঝে চিকিৎসার বিকল্প এবং পরবর্তী
+  পরিচর্যা নিয়ে আলোচনা করেন।
+specializationSummary: >-
+  হাড় ভাঙা, জয়েন্টের ব্যথা, আর্থ্রাইটিস, খেলাধুলার আঘাত, কোমর ও ঘাড়ের সমস্যা
+  এবং পুনর্বাসনের পরামর্শ।
 specializationTags:
-  - "অর্থোপেডিকস"
+  - অর্থোপেডিকস
+  - হাড় ও জয়েন্টের যত্ন
+  - আঘাত ও পুনর্বাসন
 ---
 
-Profile introduction for {{doctorName}}.
+{{doctorName}}-এর পরিচিতি।

@@ -1,8 +1,10 @@
 ---
-title: "Professional Memberships"
-description: "Professional Memberships of {{doctorName}}"
+title: Professional Memberships
+description: 'Professional information for {{doctorName}}'
 ---
 
-- **Bangladesh Medical Association (BMA)** - Member
-- **Bangladesh College of Physicians and Surgeons (BCPS)** - Fellow
-- **American College of Physicians (ACP)** - Member
+> Sample content — replace with your own details before publishing.
+
+- **[Orthopedic professional association]** — [Membership category], [Year joined].
+- **[National medical association]** — [Membership category], [Year joined].
+- **[Clinical education or research society]** — [Membership category], [Year joined].

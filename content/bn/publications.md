@@ -1,7 +1,15 @@
 ---
-title: "Publications"
-description: "Publications by {{doctorName}}"
+title: প্রকাশনা
+description: '{{doctorName}}-এর পেশাগত তথ্য'
 ---
 
-- *Cardiovascular Risk Factors in Urban Bangladesh* - Journal of Bangladesh College of Physicians and Surgeons, 2019
-- *Management of Difficult-to-Treat Hypertension* - Bangladesh Medical Research Council Bulletin, 2020
+> নমুনা কনটেন্ট — প্রকাশের আগে নিজের তথ্য দিয়ে প্রতিস্থাপন করুন।
+
+1. **[নমুনা শিরোনাম: সাধারণ হাড় ভাঙার পর ফলোআপ পরিচর্যা]**
+   [লেখকদের নাম]। [সাময়িকীর নাম], [বছর]; [খণ্ড]:[পৃষ্ঠা]। DOI: [যাচাইকৃত DOI লিখুন]।
+
+2. **[নমুনা শিরোনাম: হাঁটুর অস্টিওআর্থ্রাইটিসে দৈনন্দিন কাজের সক্ষমতা]**
+   [লেখকদের নাম]। [সাময়িকীর নাম], [বছর]; [খণ্ড]:[পৃষ্ঠা]। DOI: [যাচাইকৃত DOI লিখুন]।
+
+3. **[নমুনা শিরোনাম: খেলাধুলার আঘাতের পর পুনর্বাসন]**
+   [লেখকদের নাম]। [সম্মেলন বা সাময়িকীর নাম], [বছর]। [যাচাইকৃত প্রকাশনার লিংক লিখুন]।

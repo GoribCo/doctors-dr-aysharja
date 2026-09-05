@@ -1,6 +1,6 @@
 ---
-title: "Experience"
-description: "Professional experience of {{doctorName}}"
+title: Experience
+description: 'Professional information for {{doctorName}}'
 ---
 
 - **Senior Consultant, Internal Medicine** - Apollo Hospitals, Dhaka - 2018 - Present

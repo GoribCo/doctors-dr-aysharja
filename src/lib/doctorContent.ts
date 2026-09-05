@@ -16,6 +16,7 @@ export interface DoctorSection {
 
 export interface DoctorService {
   id: string;
+  order?: number;
   title: string;
   shortDescription: string;
   icon?: string;
@@ -45,7 +46,7 @@ function getContentDir(lang: ContentLanguage = DEFAULT_CONTENT_LANG): string {
 
 export function getSiteSettings(): SiteSettings {
   const cacheKey = 'site_settings'
-  if (contentCache.has(cacheKey)) return contentCache.get(cacheKey)
+  if (process.env.NODE_ENV === 'production' && contentCache.has(cacheKey)) return contentCache.get(cacheKey)
   const filePath = path.join(process.cwd(), 'content', 'site.md')
   if (!fs.existsSync(filePath)) return {}
   const { data } = matter(fs.readFileSync(filePath, 'utf-8'))
@@ -55,7 +56,7 @@ export function getSiteSettings(): SiteSettings {
 
 export function getDoctorName(lang: ContentLanguage = DEFAULT_CONTENT_LANG): string {
   const cacheKey = `${lang}:doctor_name`
-  if (contentCache.has(cacheKey)) {
+  if (process.env.NODE_ENV === 'production' && contentCache.has(cacheKey)) {
     return contentCache.get(cacheKey)
   }
 
@@ -90,7 +91,7 @@ export function getSectionContent(filename: string, lang: ContentLanguage = DEFA
   const contentDir = getContentDir(lang)
   const cacheKey = `${lang}:${filename}`
 
-  if (contentCache.has(cacheKey)) {
+  if (process.env.NODE_ENV === 'production' && contentCache.has(cacheKey)) {
     return contentCache.get(cacheKey)
   }
 
@@ -136,7 +137,7 @@ export function getServicesList(lang: ContentLanguage = DEFAULT_CONTENT_LANG): D
   const contentDir = getContentDir(lang)
   const cacheKey = `${lang}:services_list`
 
-  if (contentCache.has(cacheKey)) {
+  if (process.env.NODE_ENV === 'production' && contentCache.has(cacheKey)) {
     return contentCache.get(cacheKey)
   }
 
@@ -158,6 +159,7 @@ export function getServicesList(lang: ContentLanguage = DEFAULT_CONTENT_LANG): D
     
     return {
       id: filename.replace('.md', ''),
+      order: typeof data.order === 'number' ? data.order : 100,
       title: replaceTemplateVars((data.title as string) || '', templateVars),
       shortDescription: replaceTemplateVars((data.shortDescription as string) || '', templateVars),
       icon: (data.icon as string) || undefined,
@@ -167,7 +169,7 @@ export function getServicesList(lang: ContentLanguage = DEFAULT_CONTENT_LANG): D
     }
   })
 
-  const result = services.filter(s => s.isVisible)
+  const result = services.filter(s => s.isVisible).sort((a, b) => a.order - b.order || a.id.localeCompare(b.id))
   contentCache.set(cacheKey, result)
   return result
 }

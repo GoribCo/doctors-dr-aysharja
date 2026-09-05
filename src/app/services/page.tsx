@@ -6,7 +6,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const doctorName = getDoctorName('en');
   return {
   title: 'Services',
-  description: 'Medical services and specialised care offered.',
+  description: `Orthopedic care with ${doctorName}, including fractures, joint pain, arthritis, sports injuries, spine care, and rehabilitation.`,
   }
 }
 

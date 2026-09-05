@@ -1,8 +1,7 @@
 ---
-title: "Qualifications"
-description: "Qualifications of {{doctorName}}"
+title: Qualifications
+description: 'Qualifications of {{doctorName}}'
 ---
 
-- **MBBS** - Khulna Medical College, Dhaka - 2008
-- **FCPS (Medicine)** - Bangladesh College of Physicians and Surgeons (BCPS) - 2013
-- **MD (Cardiology)** - Bangabandhu Sheikh Mujib Medical University (BSMMU) - 2017
+- **MBBS**
+- **D-Ortho**

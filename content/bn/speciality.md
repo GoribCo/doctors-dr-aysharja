@@ -1,8 +1,11 @@
 ---
-title: "Speciality"
-description: "Speciality of {{doctorName}}"
+title: বিশেষত্ব
+description: অর্থোপেডিক চিকিৎসার ক্ষেত্র
 ---
 
-- **Internal Medicine**
-- **Clinical Cardiology**
-- **Preventive Healthcare**
+- সাধারণ অর্থোপেডিক পরামর্শ
+- হাড় ভাঙার চিকিৎসা ও ফলোআপ
+- জয়েন্টের ব্যথা ও আর্থ্রাইটিস
+- খেলাধুলার আঘাতের চিকিৎসা
+- কোমর, ঘাড় ও মেরুদণ্ডের যত্ন
+- অস্টিওপোরোসিস ও হাড়ের স্বাস্থ্য

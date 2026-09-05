@@ -1,6 +1,6 @@
 ---
-title: "Sub-speciality"
-description: "Sub-specialities of {{doctorName}}"
+title: বিশেষ প্রশিক্ষণের ক্ষেত্র
+description: '{{doctorName}}-এর পেশাগত তথ্য'
 ---
 
 - **Echocardiography**

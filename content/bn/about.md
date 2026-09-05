@@ -1,6 +1,8 @@
 ---
-title: "Biography"
-description: "About {{doctorName}}"
+title: পরিচিতি
+description: '{{doctorName}} সম্পর্কে'
 ---
 
-{{doctorName}} is a highly dedicated and compassionate medical professional with a profound commitment to patient care and advancing medical practices. With years of rigorous training and clinical experience, Dr. Podder has developed a strong reputation for delivering comprehensive and empathetic healthcare services. Her approach focuses on understanding the individual needs of each patient, ensuring personalized treatment plans that promote overall well-being.
+{{doctorName}} একজন অর্থোপেডিক চিকিৎসক। হাড়, জয়েন্ট ও পেশির সমস্যা, আঘাত এবং চলাফেরার অসুবিধার মূল্যায়ন ও চিকিৎসা পরামর্শ তাঁর সেবার অন্তর্ভুক্ত।
+
+পরামর্শে আপনার উপসর্গ, চিকিৎসার ইতিহাস ও দৈনন্দিন প্রয়োজনকে গুরুত্ব দেওয়া হয়। চিকিৎসার বিকল্প, প্রয়োজনীয় পরীক্ষা এবং পুনর্বাসনের পরবর্তী পদক্ষেপ নিয়ে আলোচনা করা হয়।

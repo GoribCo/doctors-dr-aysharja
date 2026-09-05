@@ -1,19 +1,27 @@
 ---
-title: "Profile"
-description: "Profile of {{doctorName}}"
-salutation: "Dr."
-doctorName: "Aysharja Laxmi Podder"
-designation: "Orthopaedic Doctor"
-affiliation: "[Add hospital / chamber name]"
-role: "Consultant"
-yearsOfExperience: "[Add]"
+title: Profile
+description: 'Profile of {{doctorName}}'
+salutation: Dr.
+doctorName: Aysharja Laxmi Podder
+designation: Orthopaedic Doctor
+affiliation: '[Add hospital / chamber name]'
+role: Consultant
+yearsOfExperience: '[Add]'
 languages:
-  - "Bangla"
-  - "English"
-bio: "{{doctorName}} offers thoughtful, patient-first care across women's health and obstetrics. She believes a good consultation begins with listening carefully and explaining each next step clearly. Her approach is warm, respectful, and shaped around helping patients feel informed and comfortable in their care."
-specializationSummary: "Support across prenatal care, women's health, and general consultations, with time set aside for the questions that matter to each patient."
+  - Bangla
+  - English
+bio: >-
+  {{doctorName}} provides orthopedic care for bone, joint, muscle, and
+  movement-related concerns. Her consultations focus on understanding symptoms
+  and everyday limitations, discussing treatment options, and planning follow-up
+  care.
+specializationSummary: >-
+  Consultations for fractures, joint pain, arthritis, sports injuries, back and
+  neck problems, and rehabilitation.
 specializationTags:
-  - "Orthopaedics"
+  - Orthopaedics
+  - Bone & Joint Care
+  - Injury & Rehabilitation
 ---
 
-Profile introduction for {{doctorName}}.
+Profile of {{doctorName}}.

@@ -308,7 +308,7 @@ const bn: Translations = {
     iWantToLearn: 'আমি শিখতে চাই',
     availableCourses: 'উপলব্ধ কোর্স',
     moreComing: 'শীঘ্রই আরও ভাষা জুটি আসছে',
-    whyRxProfile: 'ডা. আয়শারজা সম্পর্কে',
+    whyRxProfile: 'ডা. ঐশর্য্য সম্পর্কে',
     cefr: 'CEFR কাঠামো',
     cefrDesc: 'A1 থেকে C2',
     focused: 'মনোযোগী পাঠ',

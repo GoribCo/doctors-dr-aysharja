@@ -1,8 +1,10 @@
 ---
-title: "Professional Memberships"
-description: "Professional Memberships of {{doctorName}}"
+title: পেশাগত সদস্যপদ
+description: '{{doctorName}}-এর পেশাগত তথ্য'
 ---
 
-- **Bangladesh Medical Association (BMA)** - Member
-- **Bangladesh College of Physicians and Surgeons (BCPS)** - Fellow
-- **American College of Physicians (ACP)** - Member
+> নমুনা কনটেন্ট — প্রকাশের আগে নিজের তথ্য দিয়ে প্রতিস্থাপন করুন।
+
+- **[অর্থোপেডিক পেশাজীবী সংগঠনের নাম]** — [সদস্যপদের ধরন], [যোগদানের বছর]।
+- **[জাতীয় চিকিৎসক সংগঠনের নাম]** — [সদস্যপদের ধরন], [যোগদানের বছর]।
+- **[চিকিৎসা শিক্ষা বা গবেষণা সংগঠনের নাম]** — [সদস্যপদের ধরন], [যোগদানের বছর]।

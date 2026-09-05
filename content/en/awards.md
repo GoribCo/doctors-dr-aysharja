@@ -1,6 +1,6 @@
 ---
-title: "Awards & Recognitions"
-description: "Awards and recognitions of {{doctorName}}"
+title: Awards & Recognitions
+description: 'Professional information for {{doctorName}}'
 ---
 
 - **Excellence in Patient Care** - Apollo Hospitals - 2021
