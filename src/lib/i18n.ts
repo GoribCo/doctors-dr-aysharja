@@ -20,16 +20,23 @@ export interface Translations {
     more: string
   }
   settings: {
+    panelTitle: string
+    panelDescription: string
+    closePanel: string
+    allSettings: string
     appearance: string
     theme: string
+    themeSystem: string
+    themeLight: string
+    themeDark: string
+    switchToLight: string
+    switchToDark: string
     fontSize: string
     fontSmall: string
     fontMedium: string
     fontLarge: string
     language: string
     languageDesc: string
-    contentLanguage: string
-    contentLanguageDesc: string
     speciality: string
     specialityDesc: string
     specialityNone: string
@@ -105,16 +112,23 @@ const en: Translations = {
     more: 'More',
   },
   settings: {
+    panelTitle: 'Display settings',
+    panelDescription: 'Make this site comfortable to read.',
+    closePanel: 'Close settings',
+    allSettings: 'All settings',
     appearance: 'Appearance',
     theme: 'Theme',
+    themeSystem: 'System',
+    themeLight: 'Light',
+    themeDark: 'Dark',
+    switchToLight: 'Switch to light mode',
+    switchToDark: 'Switch to dark mode',
     fontSize: 'Font Size',
     fontSmall: 'Small',
     fontMedium: 'Medium',
     fontLarge: 'Large',
-    language: 'Site Language',
-    languageDesc: 'Language used for menus and buttons',
-    contentLanguage: 'Content Language',
-    contentLanguageDesc: 'Language for profile content',
+    language: 'Language',
+    languageDesc: 'Language for the whole site',
     speciality: 'Medical Speciality',
     specialityDesc: 'Customize appearance based on speciality',
     specialityNone: 'Not specified',
@@ -190,16 +204,23 @@ const bn: Translations = {
     more: 'আরও',
   },
   settings: {
+    panelTitle: 'প্রদর্শন সেটিংস',
+    panelDescription: 'পড়ার সুবিধামতো সাইটটি সাজিয়ে নিন।',
+    closePanel: 'সেটিংস বন্ধ করুন',
+    allSettings: 'সব সেটিংস',
     appearance: 'চেহারা',
     theme: 'থিম',
+    themeSystem: 'সিস্টেম',
+    themeLight: 'হালকা',
+    themeDark: 'গাঢ়',
+    switchToLight: 'হালকা থিম ব্যবহার করুন',
+    switchToDark: 'গাঢ় থিম ব্যবহার করুন',
     fontSize: 'ফন্ট আকার',
     fontSmall: 'ছোট',
     fontMedium: 'মাঝারি',
     fontLarge: 'বড়',
-    language: 'সাইটের ভাষা',
-    languageDesc: 'মেনু ও বোতামের ভাষা',
-    contentLanguage: 'সামগ্রী ভাষা',
-    contentLanguageDesc: 'প্রোফাইল সামগ্রীর ভাষা',
+    language: 'ভাষা',
+    languageDesc: 'পুরো সাইটের ভাষা',
     speciality: 'চিকিৎসা বিশেষত্ব',
     specialityDesc: 'বিশেষত্ব অনুযায়ী চেহারা কাস্টমাইজ করুন',
     specialityNone: 'নির্দিষ্ট নয়',
@@ -275,16 +296,23 @@ const hi: Translations = {
     more: 'अधिक',
   },
   settings: {
+    panelTitle: 'डिस्प्ले सेटिंग्स',
+    panelDescription: 'पढ़ने की सुविधा के अनुसार साइट बदलें।',
+    closePanel: 'सेटिंग्स बंद करें',
+    allSettings: 'सभी सेटिंग्स',
     appearance: 'दिखावट',
     theme: 'थीम',
+    themeSystem: 'सिस्टम',
+    themeLight: 'हल्का',
+    themeDark: 'गहरा',
+    switchToLight: 'हल्की थीम चुनें',
+    switchToDark: 'गहरी थीम चुनें',
     fontSize: 'फ़ॉन्ट आकार',
     fontSmall: 'छोटा',
     fontMedium: 'मध्यम',
     fontLarge: 'बड़ा',
-    language: 'साइट की भाषा',
-    languageDesc: 'मेनू और बटन की भाषा',
-    contentLanguage: 'सामग्री भाषा',
-    contentLanguageDesc: 'प्रोफाइल सामग्री की भाषा',
+    language: 'भाषा',
+    languageDesc: 'पूरी साइट की भाषा',
     speciality: 'चिकित्सा विशेषता',
     specialityDesc: 'विशेषता के अनुसार उपस्थिति को अनुकूलित करें',
     specialityNone: 'निर्दिष्ट नहीं',

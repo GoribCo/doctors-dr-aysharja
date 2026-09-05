@@ -1,9 +1,9 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
-import { type UiLang, type Translations, translations, detectUiLang } from '@/lib/i18n'
+import { createContext, useContext } from 'react'
+import { useContentLanguage } from './ContentLanguageProvider'
+import { type UiLang, type Translations, translations } from '@/lib/i18n'
 
-const STORAGE_KEY = 'rxprofile_ui_lang'
 
 interface UiLangContextValue {
   lang: UiLang
@@ -22,24 +22,7 @@ export function useUiLang() {
 }
 
 export default function UiLanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<UiLang>('en')
-
-  useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY) as UiLang | null
-    const resolved = stored ?? detectUiLang()
-    if (resolved === 'en' || resolved === 'bn' || resolved === 'hi') setLangState(resolved)
-    const onContentLanguageChange = (event: Event) => {
-      const next = (event as CustomEvent<UiLang>).detail
-      if (next === 'en' || next === 'bn' || next === 'hi') setLangState(next)
-    }
-    window.addEventListener('rxprofile-language-change', onContentLanguageChange)
-    return () => window.removeEventListener('rxprofile-language-change', onContentLanguageChange)
-  }, [])
-
-  function setLang(next: UiLang) {
-    localStorage.setItem(STORAGE_KEY, next)
-    setLangState(next)
-  }
+  const { lang, setLang } = useContentLanguage()
 
   return (
     <UiLangContext.Provider value={{ lang, t: translations[lang], setLang }}>
