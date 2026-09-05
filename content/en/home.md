@@ -1,41 +1,51 @@
 ---
-title: "Home"
-doctorName: "{{doctorName}}"
-brandSubtitle: "Medical portfolio"
-heroEyebrow: "Compassionate care, thoughtfully delivered"
-heroTitle: "A calmer, more confident path to better health."
-credentials: "MBBS, D-Ortho"
-specialization: "Orthopaedics"
-heroDescription: "Personal, attentive medical care shaped around your questions, your comfort, and your wellbeing."
-appointmentNote: "Appointments by phone"
-consultationHours: "[Add consultation hours]"
-availability: "Taking appointments"
-availabilityNote: "[Confirm availability]"
-introLabel: "Meet your doctor"
-introTitle: "Care that begins with listening."
-introText: "{{doctorName}} brings a thoughtful, patient-first approach to every consultation. Her aim is to make medical care feel clear, respectful, and tailored to the person in front of her."
-learnMore: "Learn more about Dr. Aysharja"
-servicesLabel: "Areas of care"
-servicesTitle: "Support for every step."
-viewServices: "View all services"
+title: Home
+doctorName: '{{doctorName}}'
+brandSubtitle: Medical portfolio
+heroEyebrow: 'Compassionate care, thoughtfully delivered'
+heroTitle: Care for better movement and everyday comfort.
+credentials: 'MBBS, D-Ortho'
+specialization: Orthopaedics
+heroDescription: >-
+  Attentive orthopedic care for bone, joint, and muscle problems, injuries, and
+  recovery.
+appointmentNote: Appointments by phone
+consultationHours: '[Add consultation hours]'
+availability: Taking appointments
+availabilityNote: '[Confirm availability]'
+introLabel: Meet your doctor
+introTitle: Care that begins with listening.
+introText: >-
+  {{doctorName}} provides orthopedic consultations for bone, joint, and
+  movement-related concerns. Each visit focuses on understanding your symptoms,
+  explaining care options, and planning the next steps.
+learnMore: 'Learn more about {{doctorShortName}}'
+servicesLabel: Areas of care
+servicesTitle: 'Support for your bones, joints, and movement.'
+viewServices: View all services
 services:
-  - "Orthopaedics"
-chamberLabel: "Visit the chamber"
-chamberTitle: "Your appointment, made simple."
-chamberName: "[Add chamber / clinic name]"
-chamberAddress: "[Add chamber address]"
-availabilityLabel: "Availability"
-consultationDays: "[Add consultation days and hours]"
-credentialsLabel: "Credentials"
+  - General Orthopedic Consultation
+  - Fracture Treatment & Follow-up
+  - Joint Pain & Arthritis Care
+  - Sports Injury Care
+  - 'Back, Neck & Spine Care'
+  - Osteoporosis & Bone Health
+chamberLabel: Visit the chamber
+chamberTitle: 'Your appointment, made simple.'
+chamberName: '[Add chamber / clinic name]'
+chamberAddress: '[Add chamber address]'
+availabilityLabel: Availability
+consultationDays: '[Add consultation days and hours]'
+credentialsLabel: Credentials
 credentialItems:
-  - "MBBS"
-  - "D-Ortho"
-testimonial: "[Add a short patient testimonial that reflects the experience of care.]"
-testimonialAuthor: "[Patient name or initials, with permission]"
-ctaLabel: "Let's talk about your health"
-ctaTitle: "The first step can be a phone call."
-callToBook: "Call to book"
-footerAddress: "[Add chamber / clinic name] · [Add address]"
+  - MBBS
+  - D-Ortho
+testimonial: '[Add a short patient testimonial that reflects the experience of care.]'
+testimonialAuthor: '[Patient name or initials, with permission]'
+ctaLabel: Let's talk about your health
+ctaTitle: The first step can be a phone call.
+callToBook: Call to book
+footerAddress: '[Add chamber / clinic name] · [Add address]'
 ---
 
 Homepage content for {{doctorName}}.

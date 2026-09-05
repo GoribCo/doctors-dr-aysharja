@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import ThemeProvider from '@/components/ThemeProvider'
+import FontSizeProvider from '@/components/FontSizeProvider'
 import UiLanguageProvider from '@/components/UiLanguageProvider'
 import SpecialityProvider from '@/components/SpecialityProvider'
 import ContentLanguageProvider from '@/components/ContentLanguageProvider'
@@ -92,9 +93,10 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} font-sans antialiased min-h-dvh`}>
         <ThemeProvider>
-          <UiLanguageProvider>
+          <FontSizeProvider>
+          <ContentLanguageProvider contentByLanguage={contentByLanguage}>
             <SpecialityProvider>
-              <ContentLanguageProvider contentByLanguage={contentByLanguage}>
+              <UiLanguageProvider>
                 <ServiceWorkerRegistrar />
                 {/*
                   max-w-6xl caps the whole layout (sidebar + content) at 1152px.
@@ -112,9 +114,10 @@ export default function RootLayout({
                   </main>
                   <StickyAppointmentCTA />
                 </div>
-              </ContentLanguageProvider>
+              </UiLanguageProvider>
             </SpecialityProvider>
-          </UiLanguageProvider>
+          </ContentLanguageProvider>
+          </FontSizeProvider>
         </ThemeProvider>
       </body>
     </html>

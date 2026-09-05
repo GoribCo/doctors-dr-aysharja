@@ -5,6 +5,11 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import config from '@/config'
 import { navigation, isNavigationItemActive, type NavigationItem } from '@/lib/navigation'
+import { useUiLang } from '@/components/UiLanguageProvider'
+
+function translatedLabel(label: string, nav: Record<string, string>) {
+  return nav[label.toLowerCase()] || label
+}
 
 const icons = {
   home: (
@@ -49,6 +54,7 @@ function Chevron({ open }: { open: boolean }) {
 }
 
 function AboutAccordion({ pathname, mobile = false }: { pathname: string; mobile?: boolean }) {
+  const { t } = useUiLang()
   const about = navigation.primary.find(item => item.label === 'About') as NavigationItem
   const childActive = about.children?.some(item => isNavigationItemActive(pathname, item.path)) ?? false
   const [open, setOpen] = useState(childActive)
@@ -72,7 +78,7 @@ function AboutAccordion({ pathname, mobile = false }: { pathname: string; mobile
           ? `flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${childActive ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white'}`
           : `flex items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-left font-medium text-sm transition-colors ${childActive ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'}`}
       >
-        <span className="flex items-center gap-3">{about.label}</span>
+        <span className="flex items-center gap-3">{translatedLabel(about.label, t.nav)}</span>
         <Chevron open={open} />
       </button>
       <div
@@ -93,7 +99,7 @@ function AboutAccordion({ pathname, mobile = false }: { pathname: string; mobile
                     ? `block border-b border-gray-100 px-3 py-2.5 text-sm dark:border-gray-800 ${active ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-600 dark:text-gray-400'}`
                     : `block rounded-xl px-3 py-2 text-sm ${active ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
                 >
-                  {item.label}
+                  {translatedLabel(item.label, t.nav)}
                 </Link>
               )
             })}
@@ -105,6 +111,7 @@ function AboutAccordion({ pathname, mobile = false }: { pathname: string; mobile
 }
 
 export default function BottomNav({ isAuthenticated = true }: { isAuthenticated?: boolean }) {
+  const { t } = useUiLang()
   const pathname = usePathname()
   const [moreOpen, setMoreOpen] = useState(false)
 
@@ -139,7 +146,7 @@ export default function BottomNav({ isAuthenticated = true }: { isAuthenticated?
                   {iconFor(item.path)}
                 </span>
                 <span className={`text-[10px] font-medium ${active ? 'text-indigo-600 dark:text-indigo-400' : ''}`}>
-                  {item.label}
+                  {translatedLabel(item.label, t.nav)}
                 </span>
               </Link>
             )
@@ -160,12 +167,12 @@ export default function BottomNav({ isAuthenticated = true }: { isAuthenticated?
                     }`}
                   >
                     {iconFor(item.path)}
-                    {item.label}
+                    {translatedLabel(item.label, t.nav)}
                   </Link>
                   )
                 ))}
-                {contact && <Link href={contact.path} onClick={() => setMoreOpen(false)} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium ${isNavigationItemActive(pathname, contact.path) ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400' : 'text-gray-600 dark:text-gray-400'}`}>{iconFor(contact.path)}{contact.label}</Link>}
-                {isAuthenticated && navigation.authenticatedOnly.map(item => <Link key={item.path} href={item.path} onClick={() => setMoreOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-400">{iconFor(item.path)}{item.label}</Link>)}
+                {contact && <Link href={contact.path} onClick={() => setMoreOpen(false)} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium ${isNavigationItemActive(pathname, contact.path) ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400' : 'text-gray-600 dark:text-gray-400'}`}>{iconFor(contact.path)}{translatedLabel(contact.label, t.nav)}</Link>}
+                {isAuthenticated && navigation.authenticatedOnly.map(item => <Link key={item.path} href={item.path} onClick={() => setMoreOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-400">{iconFor(item.path)}{translatedLabel(item.label, t.nav)}</Link>)}
               </div>
             )}
             <button
@@ -214,7 +221,7 @@ export default function BottomNav({ isAuthenticated = true }: { isAuthenticated?
                 <span className={active ? 'text-indigo-600 dark:text-indigo-400' : ''}>
                   {iconFor(item.path)}
                 </span>
-                {item.label}
+                {translatedLabel(item.label, t.nav)}
               </Link>
             )
           })())}

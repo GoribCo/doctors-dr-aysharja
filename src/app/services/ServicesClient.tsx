@@ -6,8 +6,17 @@ import { useDoctorContent } from '@/hooks/useDoctorContent'
 import { getAppointmentAction } from '@/lib/appointment'
 import type { DoctorService } from '@/lib/doctorContent'
 import { useUiLang } from '@/components/UiLanguageProvider'
+import ReactMarkdown from 'react-markdown'
 
 function ServiceIcon({ name }: { name?: string }) {
+  if (name === 'Bone') {
+    return (
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 16 16 8a3 3 0 1 0 4-4 3 3 0 1 0-4 4L8 16a3 3 0 1 0-4 4 3 3 0 1 0 4-4Z" />
+      </svg>
+    )
+  }
+
   if (name === 'Heart') {
     return (
       <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -65,6 +74,11 @@ export default function ServicesClient() {
     <div className="px-5 pb-28 pt-6 sm:px-8 lg:pb-10 lg:pt-10">
       <div className="mx-auto max-w-4xl">
         <ContentPageTitle eyebrow={t.doctor.servicesEyebrow} heading={section.title} intro={section.description} />
+        {section.content && (
+          <div className="prose mb-6 max-w-none text-sm leading-7 text-slate-600 dark:prose-invert dark:text-slate-300">
+            <ReactMarkdown>{section.content}</ReactMarkdown>
+          </div>
+        )}
         <section aria-labelledby="services-list-heading" className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800 sm:p-8">
           <h2 id="services-list-heading" className="sr-only">{t.doctor.availableServices}</h2>
           <ul className="grid list-none gap-4 p-0 sm:grid-cols-2" aria-label={t.doctor.availableServices}>
@@ -76,6 +90,16 @@ export default function ServicesClient() {
                   </div>
                   <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{service.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{service.shortDescription}</p>
+                  {service.content.trim() && (
+                    <details className="group mt-4 border-t border-slate-200 pt-4 dark:border-slate-700">
+                      <summary className="cursor-pointer rounded text-sm font-semibold text-teal-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-600 dark:text-teal-300">
+                        {lang === 'bn' ? 'পরামর্শে যা নিয়ে আলোচনা হবে' : lang === 'hi' ? 'परामर्श में क्या चर्चा होगी' : 'What we can discuss'}
+                      </summary>
+                      <div className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300 [&_li]:mt-2 [&_ul]:list-disc [&_ul]:pl-5">
+                        <ReactMarkdown>{service.content}</ReactMarkdown>
+                      </div>
+                    </details>
+                  )}
                 </article>
               </li>
             ))}

@@ -1,8 +1,8 @@
 ---
-title: "Chamber"
-description: "Clinic and chamber details for {{doctorName}}"
+title: চেম্বার
+description: '{{doctorName}}-এর ক্লিনিক ও চেম্বারের তথ্য'
 ---
 
-# Chamber
+# চেম্বার
 
-No chamber details have been configured yet.
+চেম্বারের বিস্তারিত তথ্য এখনও যোগ করা হয়নি।

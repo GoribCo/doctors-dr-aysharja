@@ -1,8 +1,8 @@
 ---
-title: "Languages"
-description: "Languages spoken by {{doctorName}}"
+title: ভাষাসমূহ
+description: '{{doctorName}} যেসব ভাষায় কথা বলেন'
 ---
 
-- **Bengali** (Native)
-- **English** (Fluent)
-- **Hindi** (Conversational)
+- **বাংলা** (মাতৃভাষা)
+- **ইংরেজি** (সাবলীল)
+- **হিন্দি** (কথোপকথনের উপযোগী)

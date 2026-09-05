@@ -1,11 +1,21 @@
 ---
-title: "Experience"
-description: "Professional experience of {{doctorName}}"
+title: Experience
+description: 'Professional information for {{doctorName}}'
 ---
 
-- **Senior Consultant, Internal Medicine** - Apollo Hospitals, Dhaka - 2018 - Present
-	- Leads internal medicine consultations and coordinates comprehensive patient care.
-- **Assistant Professor of Medicine** - Dhaka Medical College Hospital - 2014 - 2018
-	- Taught medicine and supervised clinical training for medical students and residents.
-- **Registrar** - BIRDEM General Hospital - 2010 - 2014
-	- Managed inpatient care and supported diagnosis and treatment planning.
+> Sample content — replace with your own details before publishing.
+
+## Orthopedic Consultant
+
+**[Hospital or clinic name] · [Start year]–Present**
+
+- Consultations for bone, joint, and muscle problems.
+- Assessment of fractures and sports-related injuries.
+- Follow-up care and coordination of rehabilitation.
+
+## Medical Officer, Orthopedics
+
+**[Previous hospital name] · [Start year]–[End year]**
+
+- Supported outpatient orthopedic consultations and inpatient care.
+- Assisted with injury assessment and treatment planning.

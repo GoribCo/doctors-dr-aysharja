@@ -1,6 +1,8 @@
 ---
-title: "Biography"
-description: "About {{doctorName}}"
+title: Biography
+description: 'About {{doctorName}}'
 ---
 
-{{doctorName}} is a highly dedicated and compassionate medical professional with a profound commitment to patient care and advancing medical practices. With years of rigorous training and clinical experience, Dr. Podder has developed a strong reputation for delivering comprehensive and empathetic healthcare services. Her approach focuses on understanding the individual needs of each patient, ensuring personalized treatment plans that promote overall well-being.
+{{doctorName}} is an orthopedic doctor providing assessment and care for bone, joint, and muscle problems, injuries, and movement difficulties.
+
+Consultations consider your symptoms, medical history, and daily needs. Care includes discussion of treatment options, appropriate investigations, and next steps for recovery and rehabilitation.

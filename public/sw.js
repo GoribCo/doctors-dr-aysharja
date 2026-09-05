@@ -1,17 +1,30 @@
-const CACHE = 'dr-aysharja-laxmi-podder-v1'
-const ASSETS = ['/']
-// const BASE_PATH = new URL('./', self.registration.scope).pathname
-// const ASSETS = [BASE_PATH]
+const CACHE = 'dr-aysharja-laxmi-podder-v2'
+const BASE_PATH = new URL(self.registration.scope).pathname
+const ASSETS = [BASE_PATH]
 
 self.addEventListener('install', e => e.waitUntil(
-  caches.open(CACHE).then(c => c.addAll(ASSETS))
+  caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting())
 ))
 
-self.addEventListener('fetch', e => e.respondWith(
-  caches.match(e.request).then(r => r || fetch(e.request).then(res => {
-    if (!res || res.status !== 200 || res.type === 'opaque') return res
-    const clone = res.clone()
-    caches.open(CACHE).then(c => c.put(e.request, clone))
-    return res
-  }))
+self.addEventListener('activate', e => e.waitUntil(
+  caches.keys().then(keys => Promise.all(
+    keys.filter(key => key.startsWith('dr-aysharja-laxmi-podder-') && key !== CACHE)
+      .map(key => caches.delete(key))
+  )).then(() => self.clients.claim())
 ))
+
+self.addEventListener('fetch', e => {
+  const url = new URL(e.request.url)
+  if (e.request.method !== 'GET' || url.origin !== self.location.origin) return
+  // Live responses keep content current; cached responses support offline visits.
+  e.respondWith(fetch(e.request).then(res => {
+    if (res.status === 200 && res.type !== 'opaque') {
+      const clone = res.clone()
+      e.waitUntil(caches.open(CACHE).then(c => c.put(e.request, clone)))
+    }
+    return res
+  }).catch(async () => {
+    const cached = await caches.open(CACHE).then(c => c.match(e.request))
+    return cached || Response.error()
+  }))
+})

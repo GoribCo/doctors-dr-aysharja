@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import ThemeToggle from '@/components/ThemeToggle'
+import SettingsDrawer from '@/components/SettingsDrawer'
 import { useContentLanguage } from '@/components/ContentLanguageProvider'
 import { useDoctorContent } from '@/hooks/useDoctorContent'
 import { useUiLang } from '@/components/UiLanguageProvider'
@@ -20,32 +20,27 @@ function PhoneIcon() {
 }
 
 export default function SiteHeader({ initialHome, doctorName }: Props) {
-  const {lang, availableLangs, setLang} = useContentLanguage()
+  const {lang} = useContentLanguage()
   const { t } = useUiLang()
   const {content: fetchedContent} = useDoctorContent(lang)
   const home = (fetchedContent?.home ?? initialHome ?? {}) as Record<string, unknown>
   const name = text(home, 'doctorName', doctorName)
   const phone = text(home, 'phone', fetchedContent?.site.appointment?.phone || '')
-  const phoneHref = phone ? `tel:${phone}` : '#'
+  const phoneHref = phone ? `tel:${phone}` : '/appointment/'
 
   return <header className="site-header">
     <div className="site-header-inner">
-      <Link href="/public" className="brand" aria-label={`${doctorName} home`}>
+      <Link href="/" className="brand" aria-label={`${name} ${t.nav.home}`}>
         <span className="brand-mark">ALP</span>
-        <span><strong>{doctorName}</strong>
+        <span><strong>{name}</strong>
                   <small>{text(home, 'brandSubtitle')}</small>
                   </span>
       </Link>
       <div className="header-actions">
-        <select className="language-select" aria-label={t.common.changeLanguage}
-                value={lang}
-                onChange={event => setLang(event.target.value as typeof lang)}>{availableLangs.map(language =>
-            <option value={language} key={language}>{language.toUpperCase()}</option>)}
-        </select>
-        <ThemeToggle/>
-        <a
-            href={phoneHref} className="header-phone"><PhoneIcon/><span>{text(home, 'callToBook')}</span>
-        </a>
+        <Link
+            href={phoneHref} aria-label={text(home, 'callToBook')} className="header-phone"><PhoneIcon/><span>{text(home, 'callToBook')}</span>
+        </Link>
+        <SettingsDrawer />
       </div>
     </div>
   </header>

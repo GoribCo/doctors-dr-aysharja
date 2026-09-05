@@ -7,7 +7,7 @@ import type {
   DoctorContentByLanguage,
 } from '@/lib/doctorContent'
 
-const STORAGE_KEY = 'rxprofile_content_lang'
+const STORAGE_KEY = 'rxprofile_language'
 const DEFAULT_CONTENT_LANG: ContentLanguage = 'bn'
 
 interface ContentLanguageContextValue {
@@ -45,14 +45,24 @@ export default function ContentLanguageProvider({
   const [lang, setLangState] = useState<ContentLanguage>(defaultLang)
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY) as ContentLanguage | null
-    if (stored && availableLangs.includes(stored)) setLangState(stored)
-  }, [availableLangs])
+    // Migrate either previous preference to one supported site language.
+    const stored = [STORAGE_KEY, 'rxprofile_content_lang', 'rxprofile_ui_lang']
+      .map(key => localStorage.getItem(key) as ContentLanguage | null)
+      .find(value => value && availableLangs.includes(value))
+    const resolved = stored ?? defaultLang
+    setLangState(resolved)
+    localStorage.setItem(STORAGE_KEY, resolved)
+    localStorage.removeItem('rxprofile_content_lang')
+    localStorage.removeItem('rxprofile_ui_lang')
+  }, [availableLangs, defaultLang])
+
+  useEffect(() => { document.documentElement.lang = lang }, [lang])
 
   function setLang(next: ContentLanguage) {
     if (availableLangs.includes(next)) {
       setLangState(next)
       localStorage.setItem(STORAGE_KEY, next)
+
     }
   }
 

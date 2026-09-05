@@ -1,12 +1,12 @@
 ---
-title: "Appointment"
-description: "How to book an appointment with {{doctorName}}"
+title: অ্যাপয়েন্টমেন্ট
+description: '{{doctorName}}-এর সঙ্গে সাক্ষাতের সময় নির্ধারণের পদ্ধতি'
 chambers:
-	- name: "চেম্বারের তথ্য নিশ্চিত করা হবে"
-	  address: "বর্তমান চেম্বারের ঠিকানার জন্য ক্লিনিকে ফোন করুন।"
-	  visitingDays: "অ্যাপয়েন্টমেন্ট অনুযায়ী"
-	  visitingHours: "সময় জানার জন্য ফোন করুন"
-	  googleMapsUrl: ""
+  - name: চেম্বারের তথ্য নিশ্চিত করা হবে
+    address: বর্তমান চেম্বারের ঠিকানার জন্য ক্লিনিকে ফোন করুন।
+    visitingDays: অ্যাপয়েন্টমেন্ট অনুযায়ী
+    visitingHours: সময় জানার জন্য ফোন করুন
+    googleMapsUrl: ''
 ---
 
 পরামর্শ এবং অ্যাপয়েন্টমেন্ট নির্ধারণের জন্য সরাসরি ক্লিনিকে ফোন করুন।

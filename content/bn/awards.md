@@ -1,7 +1,9 @@
 ---
-title: "Awards & Recognitions"
-description: "Awards and recognitions of {{doctorName}}"
+title: পুরস্কার ও স্বীকৃতি
+description: '{{doctorName}}-এর পেশাগত তথ্য'
 ---
 
-- **Excellence in Patient Care** - Apollo Hospitals - 2021
-- **Best Young Physician Award** - BMA Annual Conference - 2016
+> নমুনা কনটেন্ট — প্রকাশের আগে নিজের তথ্য দিয়ে প্রতিস্থাপন করুন।
+
+- **[রোগীসেবায় স্বীকৃতি]** — [প্রদানকারী হাসপাতাল বা প্রতিষ্ঠানের নাম], [বছর]। মনোযোগী রোগীসেবার জন্য স্বীকৃতি।
+- **[ক্লিনিক্যাল প্রশিক্ষণ পুরস্কার]** — [প্রশিক্ষণ প্রতিষ্ঠানের নাম], [বছর]। অর্থোপেডিক প্রশিক্ষণে অংশগ্রহণ বা কৃতিত্বের জন্য স্বীকৃতি।
