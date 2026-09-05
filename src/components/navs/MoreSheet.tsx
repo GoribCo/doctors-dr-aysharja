@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { navigation, isNavigationItemActive } from '@/lib/navigation'
+import { useUiLang } from '@/components/UiLanguageProvider'
 
 interface Props {
   open: boolean
@@ -12,6 +13,8 @@ interface Props {
 }
 
 export default function MoreSheet({ open, pathname, isAuthenticated, onClose }: Props) {
+  const { t } = useUiLang()
+  const label = (value: string) => t.nav[value.toLowerCase() as keyof typeof t.nav] || value
   const about = navigation.primary.find(item => item.children)
   const contact = navigation.primary.find(item => item.path === '/contact/')
   const childActive = about?.children?.some(item => isNavigationItemActive(pathname, item.path)) ?? false
@@ -33,13 +36,13 @@ export default function MoreSheet({ open, pathname, isAuthenticated, onClose }: 
         <div className="more-sheet-links">
           {about && <div className="more-sheet-group">
             <button type="button" className="more-sheet-group-toggle" aria-expanded={aboutOpen} aria-controls="more-sheet-about-links" onClick={() => setAboutOpen(value => !value)}>
-              {about.label}<span className={aboutOpen ? 'open' : ''} aria-hidden="true">⌄</span>
+              {label(about.label)}<span className={aboutOpen ? 'open' : ''} aria-hidden="true">⌄</span>
             </button>
             <div id="more-sheet-about-links" className={`more-sheet-group-links ${aboutOpen ? 'open' : ''}`} aria-hidden={!aboutOpen}>
-              {about.children?.map(item => <Link key={item.path} href={item.path} className={isNavigationItemActive(pathname, item.path) ? 'active' : ''} tabIndex={open && aboutOpen ? 0 : -1} onClick={onClose}>{item.label}</Link>)}
+              {about.children?.map(item => <Link key={item.path} href={item.path} className={isNavigationItemActive(pathname, item.path) ? 'active' : ''} tabIndex={open && aboutOpen ? 0 : -1} onClick={onClose}>{label(item.label)}</Link>)}
             </div>
           </div>}
-          {contact && <Link href={contact.path} className={isNavigationItemActive(pathname, contact.path) ? 'active' : ''} tabIndex={open ? 0 : -1} onClick={onClose}>{contact.label}</Link>}
+          {contact && <Link href={contact.path} className={isNavigationItemActive(pathname, contact.path) ? 'active' : ''} tabIndex={open ? 0 : -1} onClick={onClose}>{label(contact.label)}</Link>}
           {isAuthenticated && navigation.authenticatedOnly.map(item => <Link key={item.path} href={item.path} className={isNavigationItemActive(pathname, item.path) ? 'active' : ''} tabIndex={open ? 0 : -1} onClick={onClose}>{item.label}</Link>)}
         </div>
       </section>

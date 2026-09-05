@@ -53,6 +53,7 @@ export default function ContentLanguageProvider({
     if (availableLangs.includes(next)) {
       setLangState(next)
       localStorage.setItem(STORAGE_KEY, next)
+      window.dispatchEvent(new CustomEvent('rxprofile-language-change', { detail: next }))
     }
   }
 

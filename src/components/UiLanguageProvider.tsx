@@ -27,7 +27,13 @@ export default function UiLanguageProvider({ children }: { children: React.React
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY) as UiLang | null
     const resolved = stored ?? detectUiLang()
-    setLangState(resolved)
+    if (resolved === 'en' || resolved === 'bn' || resolved === 'hi') setLangState(resolved)
+    const onContentLanguageChange = (event: Event) => {
+      const next = (event as CustomEvent<UiLang>).detail
+      if (next === 'en' || next === 'bn' || next === 'hi') setLangState(next)
+    }
+    window.addEventListener('rxprofile-language-change', onContentLanguageChange)
+    return () => window.removeEventListener('rxprofile-language-change', onContentLanguageChange)
   }, [])
 
   function setLang(next: UiLang) {

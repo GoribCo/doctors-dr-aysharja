@@ -166,7 +166,7 @@ export default function SettingsClient() {
             {UI_LANGUAGES.map(l => (
               <button
                 key={l.code}
-                onClick={() => setLang(l.code)}
+                onClick={() => { setLang(l.code); if (availableLangs.includes(l.code as typeof contentLang)) setContentLang(l.code as typeof contentLang) }}
                 className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
                   lang === l.code
                     ? 'bg-indigo-600 text-white border-indigo-600'
@@ -196,7 +196,7 @@ export default function SettingsClient() {
                 return (
                   <button
                     key={langCode}
-                    onClick={() => setContentLang(langCode)}
+                    onClick={() => { setContentLang(langCode); setLang(langCode as typeof lang) }}
                     className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium border transition-colors ${
                       contentLang === langCode
                         ? 'bg-blue-600 text-white border-blue-600'

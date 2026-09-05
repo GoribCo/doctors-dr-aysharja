@@ -10,6 +10,7 @@ export interface Translations {
     courses: string
     review: string
     settings: string
+    about: string; profile: string; qualifications: string; experience: string; awards: string; memberships: string; publications: string; services: string; appointment: string; contact: string; more: string
   }
   // Home
   home: {
@@ -168,7 +169,7 @@ export interface Translations {
 }
 
 const en: Translations = {
-  nav: { home: 'Home', courses: 'Courses', review: 'Review', settings: 'Settings' },
+  nav: { home: 'Home', courses: 'Courses', review: 'Review', settings: 'Settings', about:'About', profile:'Profile', qualifications:'Qualifications', experience:'Experience', awards:'Awards', memberships:'Memberships', publications:'Publications', services:'Services', appointment:'Appointment', contact:'Contact', more:'More' },
   home: {
     welcome: 'Welcome back 👋',
     tagline: 'Structured CEFR-based lessons. Go from A1 to C2 at your own pace.',
@@ -297,7 +298,7 @@ const en: Translations = {
 }
 
 const bn: Translations = {
-  nav: { home: 'হোম', courses: 'কোর্স', review: 'রিভিউ', settings: 'সেটিংস' },
+  nav: { home: 'হোম', courses: 'কোর্স', review: 'রিভিউ', settings: 'সেটিংস', about:'পরিচিতি', profile:'প্রোফাইল', qualifications:'যোগ্যতা', experience:'অভিজ্ঞতা', awards:'পুরস্কার', memberships:'সদস্যপদ', publications:'প্রকাশনা', services:'সেবা', appointment:'অ্যাপয়েন্টমেন্ট', contact:'যোগাযোগ', more:'আরও' },
   home: {
     welcome: 'স্বাগতম 👋',
     tagline: 'কাঠামোবদ্ধ CEFR পাঠ। নিজের গতিতে A1 থেকে C2 পর্যন্ত শিখুন।',
@@ -426,7 +427,7 @@ const bn: Translations = {
 }
 
 const hi: Translations = {
-  nav: { home: 'होम', courses: 'कोर्स', review: 'समीक्षा', settings: 'सेटिंग्स' },
+  nav: { home: 'होम', courses: 'कोर्स', review: 'समीक्षा', settings: 'सेटिंग्स', about:'परिचय', profile:'प्रोफ़ाइल', qualifications:'योग्यताएँ', experience:'अनुभव', awards:'पुरस्कार', memberships:'सदस्यताएँ', publications:'प्रकाशन', services:'सेवाएँ', appointment:'अपॉइंटमेंट', contact:'संपर्क', more:'अधिक' },
   home: {
     welcome: 'वापस स्वागत है 👋',
     tagline: 'संरचित CEFR पाठ। अपनी गति से A1 से C2 तक जाएं।',
